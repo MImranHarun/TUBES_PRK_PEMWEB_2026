@@ -1,0 +1,66 @@
+:root {
+    /* Palet: burgundy + cream */
+    --burgundy:       #800020;
+    --vintage:        #9b1d30;
+    --wine:           #b0303c;
+    --oxblood:        #5e0f1a;
+    --burgundy-gelap: #3b0a12;
+    --cream:          #fff5e1;
+    --ivory:          #f7ecd4;
+    --soft-cream:     #efe2c6;
+    --warm-cream:     #e6d7b9;
+    --dark-cream:     #dcc8a3;
+ 
+    /* Peran warna */
+    --darah:        var(--vintage);        /* aksen utama: tombol, tautan */
+    --darah-tua:    var(--burgundy);       /* hover / tekan */
+    --darah-pucat:  #f5dcd3;               /* latar tint untuk status */
+    --tinta:        var(--burgundy-gelap); /* teks utama */
+    --tinta-redup:  #6e5155;               /* teks sekunder */
+    --kertas:       var(--ivory);          /* latar halaman */
+    --permukaan:    var(--cream);          /* kartu, topbar, form */
+    --garis:        var(--warm-cream);     /* border halus */
+    --garis-tegas:  var(--dark-cream);
+ 
+    /* Warna status turunan: palet tidak punya hijau, biru, dan kuning,
+       jadi dibuat redup agar selaras dengan burgundy dan cream */
+    --info:         #35566f;
+    --info-pucat:   #dbe5e8;
+    --sukses:       #46662f;
+    --sukses-pucat: #e4e9c8;
+    --waspada:      #8a5a0b;
+    --waspada-pucat:#f6dea5;
+ 
+    /* Huruf: hanya font sistem, aman saat offline */
+    --font-judul: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --font-isi:   system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+ 
+    /* Skala huruf (rasio ±1.2) */
+    --t-xs: 0.8125rem;
+    --t-sm: 0.9rem;
+    --t-md: 1rem;
+    --t-lg: 1.2rem;
+    --t-xl: 1.5rem;
+    --t-2xl: 1.9rem;
+    --t-3xl: 2.4rem;
+ 
+    /* Jarak */
+    --r-1: 0.25rem;
+    --r-2: 0.5rem;
+    --r-3: 0.75rem;
+    --r-4: 1rem;
+    --r-5: 1.5rem;
+    --r-6: 2rem;
+    --r-7: 3rem;
+ 
+    /* Sudut: kecil untuk kontrol, sedang untuk panel */
+    --sudut-kecil: 4px;
+    --sudut-panel: 8px;
+ 
+    --lebar-sidebar: 264px;
+    --lebar-maks: 1240px;
+    --tinggi-topbar: 64px;
+ 
+    --bayangan: 0 1px 2px rgba(59, 10, 18, 0.08);
+}
+
