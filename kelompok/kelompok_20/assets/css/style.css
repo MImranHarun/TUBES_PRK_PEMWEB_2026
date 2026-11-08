@@ -1,0 +1,359 @@
+:root {
+    --color-primary: #1E3B2F;
+    --color-primary-dark: #16291F;
+    --color-on-primary: #F5F0E6;
+    --color-secondary: #7F8C6A;
+    --color-accent: #C8B48A;
+    --color-bg: #F5F0E6;
+    --color-surface: #FFFFFF;
+    --color-text: #1E3B2F;
+    --color-text-muted: #5F6B4E;
+    --color-border: #DDD5C0;
+    --color-danger: #8B2E2E;
+    --color-danger-bg: #F7E0DC;
+    --radius: 8px;
+}
+
+/* Reset Dasar */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Kontainer */
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.main-content {
+    flex: 1;
+    padding-top: 1.75rem;
+    padding-bottom: 2.5rem;
+}
+
+/* Header & Navigasi */
+.site-header {
+    background-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: var(--color-on-primary);
+}
+
+.brand-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.brand-sub {
+    font-size: 0.85rem;
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.navbar-menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+}
+
+.nav-link {
+    color: var(--color-on-primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius);
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--color-accent);
+}
+
+.user-greeting {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+}
+
+.nav-btn-daftar {
+    background-color: var(--color-accent);
+    color: var(--color-primary) !important;
+    font-weight: 600;
+}
+
+.nav-btn-daftar:hover {
+    background-color: #baa375;
+}
+
+.nav-btn-logout {
+    border: 1px solid var(--color-accent);
+}
+
+/* Kartu (Card) */
+.card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px rgba(30, 59, 47, 0.04);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-primary);
+}
+
+/* Tombol (Button) */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border-color: var(--color-secondary);
+    color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(127, 140, 106, 0.15);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background-color: #6e2323;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+/* Formulir (Forms) */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(200, 180, 138, 0.35);
+}
+
+.form-auth {
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Notifikasi / Alert */
+.alert {
+    padding: 0.85rem 1.2rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.alert-success {
+    background-color: #DCE2D0;
+    color: #1E3B2F;
+    border: 1px solid #C4CEB5;
+}
+
+.alert-danger {
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger);
+    border: 1px solid #ECC9C2;
+}
+
+/* Lencana Status Laporan (Section 12.4 PRD) */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-transform: capitalize;
+}
+
+.badge-menunggu {
+    background-color: #F0E6CB;
+    color: #6B5420;
+}
+
+.badge-diproses {
+    background-color: #DCE2D0;
+    color: #34402A;
+}
+
+.badge-selesai {
+    background-color: #1E3B2F;
+    color: #F5F0E6;
+}
+
+/* Tabel Responsif */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.95rem;
+}
+
+th {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: rgba(200, 180, 138, 0.12);
+}
+
+/* Footer */
+.site-footer {
+    margin-top: auto;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+    border-top: 3px solid var(--color-accent);
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-sub {
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--color-accent);
+}
+
+/* Responsif (Breakpoint) */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .navbar-menu {
+        width: 100%;
+        gap: 0.4rem 0.8rem;
+    }
+
+    .main-content {
+        padding-top: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-menu {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nav-link {
+        text-align: center;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

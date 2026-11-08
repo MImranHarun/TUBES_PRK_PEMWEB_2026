@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CiviLens - Ruang Publik FISIP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- CSS Kavling Masing-Masing -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/hoaks.css">
+    <link rel="stylesheet" href="css/aspirasi.css">
+    <link rel="stylesheet" href="css/petisi.css">
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen font-sans">
+    
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600 tracking-tight">CiviLens</h1>
+            <div class="space-x-6">
+                <button onclick="loadPage('beranda')" class="text-gray-600 hover:text-blue-600 font-medium">Beranda</button>
+                <button onclick="loadPage('hoaks')" class="text-gray-600 hover:text-blue-600 font-medium">Lapor Hoaks</button>
+                <button onclick="loadPage('aspirasi')" class="text-gray-600 hover:text-blue-600 font-medium">Aspirasi</button>
+                <button onclick="loadPage('petisi')" class="text-gray-600 hover:text-blue-600 font-medium">Petisi</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Area Konten Dinamis -->
+    <main class="flex-grow container mx-auto p-6 mt-6 bg-white shadow-sm rounded-xl border border-gray-100 max-w-5xl">
+        <div id="app-content"></div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 text-center p-6 mt-auto">
+        <p>&copy; 2026 Kelompok 11 - Praktikum PemWeb.</p>
+    </footer>
+
+    <!-- JS Kavling Masing-Masing -->
+    <script src="js/hoaks.js"></script>
+    <script src="js/aspirasi.js"></script>
+    <script src="js/petisi.js"></script>
+    <script src="js/app.js"></script> <!-- app.js wajib di paling bawah -->
+</body>
+</html>

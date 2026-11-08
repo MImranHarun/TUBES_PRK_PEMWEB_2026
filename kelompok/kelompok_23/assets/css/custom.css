@@ -1,0 +1,349 @@
+
+/* =========================================
+   FEBMART - GLOBAL DESIGN SYSTEM
+========================================= */
+
+:root {
+    --febmart-primary: #29245c;
+    --febmart-purple: #5142a5;
+    --febmart-orange: #ffad42;
+    --febmart-background: #f3f4f6;
+    --febmart-white: #ffffff;
+    --febmart-text: #333333;
+    --febmart-muted: #888888;
+    --febmart-border: #e5e5e5;
+    --febmart-danger: #dc3545;
+    --febmart-success: #198754;
+}
+
+/* =========================================
+   1. GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--febmart-background);
+    color: var(--febmart-text);
+    font-family: Arial, sans-serif;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* =========================================
+   2. NAVBAR
+========================================= */
+
+.febmart-navbar {
+    min-height: 62px;
+    background: linear-gradient(
+        145deg,
+        var(--febmart-primary),
+        var(--febmart-purple)
+    );
+}
+
+.febmart-navbar .navbar-brand {
+    color: var(--febmart-white);
+    font-size: 21px;
+}
+
+.febmart-navbar .navbar-brand i {
+    color: var(--febmart-orange);
+}
+
+.febmart-navbar .nav-link {
+    color: var(--febmart-white);
+}
+
+.febmart-navbar .nav-link:hover {
+    color: var(--febmart-orange);
+}
+
+.febmart-navbar .febmart-logout {
+    color: var(--febmart-orange);
+    font-weight: 600;
+}
+
+/* =========================================
+   3. MAIN LAYOUT
+========================================= */
+
+.app-layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px !important;
+    overflow-x: auto;
+}
+
+/* =========================================
+   4. SIDEBAR
+========================================= */
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background-color: var(--febmart-white);
+    border-right: 1px solid var(--febmart-border);
+}
+
+.sidebar-heading {
+    margin: 10px 0 18px;
+    padding-left: 12px;
+    color: var(--febmart-muted);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    margin-bottom: 6px;
+    border-radius: 7px;
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.sidebar-link i {
+    font-size: 17px;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+    background-color: #eeeaff;
+    color: var(--febmart-purple);
+    font-weight: 600;
+}
+
+.sidebar-divider {
+    margin: 18px 0;
+    border-color: var(--febmart-border);
+}
+
+/* =========================================
+   5. CARD
+========================================= */
+
+.card {
+    border: none;
+    border-radius: 12px;
+    background-color: var(--febmart-white);
+}
+
+.card-header {
+    background-color: var(--febmart-white);
+}
+
+/* =========================================
+   6. FORM
+========================================= */
+
+.form-label {
+    color: var(--febmart-text);
+}
+
+.form-control,
+.form-select {
+    min-height: 40px;
+    border-radius: 7px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--febmart-purple);
+    box-shadow: 0 0 0 0.2rem rgba(81, 66, 165, 0.15);
+}
+
+textarea.form-control {
+    min-height: 100px;
+}
+
+/* =========================================
+   7. BUTTON
+========================================= */
+
+.btn-primary,
+.btn-warning {
+    background-color: var(--febmart-orange);
+    border-color: var(--febmart-orange);
+    color: var(--febmart-primary);
+    font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-warning:hover {
+    background-color: #f49a25;
+    border-color: #f49a25;
+    color: var(--febmart-primary);
+}
+
+.btn-dark {
+    background-color: var(--febmart-primary);
+    border-color: var(--febmart-primary);
+}
+
+.btn-dark:hover {
+    background-color: var(--febmart-purple);
+    border-color: var(--febmart-purple);
+}
+
+.btn {
+    border-radius: 7px;
+}
+
+/* =========================================
+   8. TABLE
+========================================= */
+
+.table {
+    font-size: 13px;
+}
+
+.table thead th {
+    padding: 14px 12px;
+    background-color: var(--febmart-primary);
+    color: var(--febmart-white);
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.table tbody td {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #f5f4fb;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* =========================================
+   9. BADGE
+========================================= */
+
+.badge {
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+/* =========================================
+   10. NOTIFICATION
+========================================= */
+
+.alert {
+    border: none;
+    border-radius: 8px;
+}
+
+.alert-dismissible .btn-close {
+    padding: 1rem;
+}
+
+/* =========================================
+   11. FOOTER
+========================================= */
+
+.footer {
+    width: 100%;
+    margin-top: auto;
+    padding: 16px;
+    background-color: var(--febmart-white);
+    border-top: 1px solid #eeeeee;
+    color: var(--febmart-muted);
+    text-align: center;
+}
+
+/* =========================================
+   12. IMAGE
+========================================= */
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-image-preview {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--febmart-border);
+}
+
+/* =========================================
+   13. RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .app-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--febmart-border);
+    }
+
+    .main-content {
+        padding: 16px !important;
+    }
+
+    .sidebar-link {
+        padding: 10px;
+    }
+
+    .card-body {
+        padding: 18px !important;
+    }
+
+    .table {
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .main-content {
+        padding: 12px !important;
+    }
+
+    .febmart-navbar .navbar-brand {
+        font-size: 18px;
+    }
+
+    .btn {
+        font-size: 13px;
+    }
+}
