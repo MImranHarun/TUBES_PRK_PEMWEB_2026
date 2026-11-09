@@ -10,6 +10,7 @@
     --soft-cream:     #efe2c6;
     --warm-cream:     #e6d7b9;
     --dark-cream:     #dcc8a3;
+    --biru:           #003049;
  
     /* Peran warna */
     --darah:        var(--vintage);        /* aksen utama: tombol, tautan */
@@ -63,4 +64,566 @@
  
     --bayangan: 0 1px 2px rgba(59, 10, 18, 0.08);
 }
+html {
+      scroll-behavior: smooth;
+    }
+header {
+    background-color: var(--darah);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--r-2);
+    padding: var(--r-2) var(--r-4);
+    border-bottom: 1px solid var(--garis-tegas);
+}
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: var(--r-3);
+}
+.header-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--r-1);
+}
+.title {
+    font-family: var(--font-judul);
+    font-size: var(--t-2xl);
+    color: var(--cream);
+    margin: 0;
+    font-weight: bold;
+}
+.subtitle {
+    margin: 0;
+    font-size: var(--t-md);
+    color: var(--cream);
+    font-family: var(--font-judul);
+}
+.logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+.nav-menu{
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--r-4);
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+header nav {
+    margin-left: auto;
+}
+.nav-item{
+    position: relative;
+}
+.nav-link {
+    text-decoration: none;
+    color: var(--cream);
+    font-family: var(--font-judul);
+    font-size: var(--t-md);
+    letter-spacing: 0.3px;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--r-1);
+}
+.nav-link:hover, .nav-link.active{
+    color: var(--darah-pucat);
+}
+body {
+    background-color: #ffffff;
+    color: var(--tinta);
+    font-family: var(--font-isi);
+    font-size: var(--t-md);
+    line-height: 1.5;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
+/* Secction Selamat Datang CSS*/
+.hero-wrapper {
+    max-width: var(--lebar-maks);
+    margin: 0 auto;
+    padding: var(--r-6) var(--r-4);
+}
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--r-4);
+}
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+.hero-title {
+    font-family: var(--font-judul);
+    font-size: var(--t-3xl);
+    color: var(--darah);
+    margin: 0 0 var(--r-2) 0;
+}
+.hero-title .highlight-text {
+    color: #003049;
+}
+.hero-desc {
+      font-size: 1rem;
+      color: #637381; /* Abu-abu kebiruan */
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+.hero-desc .brand-link {
+      color: #0b228c;
+      font-weight: 700;
+      text-decoration: none;
+    }
+.hero-buttons {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+.hero-buttons {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+.btn-pink {
+      background-color: var(--darah);
+      color: var(--cream);
+      text-decoration: none;
+      padding: 14px 30px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      /* Efek bayangan merah muda lembut di bawah tombol */
+      box-shadow: 0 10px 20px rgba(255, 88, 100, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+.btn-pink:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(255, 88, 100, 0.45);
+    }
 
+/* Section StokDarah CSS*/
+.stokdarah {
+  padding: 80px 8%;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  background-image: radial-gradient(#d8e2ef 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  font-family: 'Poppins', sans-serif;
+}
+.stokdarah-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.stokdarah-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.stokdarah-title h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #093170;
+  margin: 0 0 8px 0;
+}
+.stokdarah-title p {
+  font-size: 0.95rem;
+  color: #5a6a85;
+  margin: 0;
+}
+.stokdarah-content {
+  width: 100%;
+}
+.blood-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 kolom sejajar */
+  gap: 24px;
+}
+.blood-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 28px 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 10px 30px rgba(9, 49, 112, 0.06);
+  border: 1px solid #f2f5f9;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.blood-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 35px rgba(9, 49, 112, 0.1);
+}
+.blood-icon {
+  width: 72px;
+  height: 72px;
+  background-color: #ffe5e7;
+  color: #e6192e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  flex-shrink: 0; /* Mencegah lingkaran gepeng di layar sempit */
+}
+.blood-info h4 {
+  margin: 0 0 6px 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #093170;
+}
+.blood-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.status-empty {
+  color: #e6192e;
+  font-style: italic;
+}
+.status-available {
+  color: #e6192e;
+}
+
+/* Login CSS*/
+/* 1. Pembungkus Utama: Membagi Layar Kiri & Kanan */
+.login-wrapper {
+  padding: 80px 8%;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  background-image: radial-gradient(#d8e2ef 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+/* 2. Kolom Kiri (Gambar) */
+.login-illustration {
+  flex: 1.2; /* Mengambil porsi sedikit lebih lebar untuk gambar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  
+}
+
+.login-illustration img {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 3. Kolom Kanan (Tempat Kotak Login) */
+.login-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* 4. Desain Kartu Login */
+.login-card {
+  background-color: var(--cream);
+  width: 100%;
+  max-width: 420px;
+  padding: 48px 40px;
+  border-radius: 26px;
+  box-shadow: 0 20px 40px rgba(9, 25, 69, 0.12);
+  text-align: center;
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--darah);
+  margin-bottom: 32px;
+}
+
+/* 5. Kotak Input Berbentuk Kapsul */
+.input-group {
+  background-color: #ffffff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 13px 22px;
+  margin-bottom: 18px;
+}
+
+.input-group i {
+  color: #0b1641;
+  font-size: 0.95rem;
+  margin-right: 14px;
+}
+
+.input-group input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.9rem;
+  color: #333;
+  background: transparent;
+}
+
+/* Form pendaftaran */
+.register-page .login-wrapper {
+  box-sizing: border-box;
+  min-height: 100vh;
+  gap: clamp(0px, 3vw, 40px);
+  padding: clamp(28px, 6vw, 72px) 7%;
+}
+
+.register-page .login-illustration {
+  min-width: 0;
+}
+
+.register-page .login-illustration img {
+  filter: drop-shadow(0 18px 24px rgba(59, 10, 18, 0.1));
+}
+
+.register-page .login-card {
+  box-sizing: border-box;
+  max-width: 480px;
+  padding: clamp(28px, 4vw, 42px);
+}
+
+.register-page .login-title {
+  margin: 0 0 26px;
+}
+
+.register-page .grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.register-page .input-group {
+  box-sizing: border-box;
+  min-width: 0;
+  margin-bottom: 16px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.register-page .input-group:focus-within {
+  border-color: rgba(155, 29, 48, 0.45);
+  box-shadow: 0 0 0 4px rgba(155, 29, 48, 0.08);
+}
+
+.register-page .input-group input {
+  min-width: 0;
+  font: inherit;
+}
+
+.register-page .custom-select {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  padding: 0 20px;
+}
+
+.register-page .custom-select:focus-within,
+.register-page .custom-select.is-open {
+  z-index: 5;
+}
+
+.register-page .custom-select > i:first-child {
+  flex: 0 0 auto;
+  margin-right: 12px;
+}
+
+.register-page .custom-select.is-open {
+  border-color: var(--darah);
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 0 0 3px rgba(101, 189, 178, 0.12);
+}
+
+.register-page .select-trigger {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  color: #333;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+}
+
+.register-page .select-value {
+  overflow: hidden;
+  color: #77808c;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.register-page .select-trigger[aria-invalid="true"] .select-value {
+  color: var(--darah);
+}
+
+.register-page .select-trigger:focus-visible {
+  outline: 0;
+}
+
+.register-page .select-chevron {
+  flex: 0 0 auto;
+  margin: 0 !important;
+  color: #64748b !important;
+  font-size: 0.75rem !important;
+  transition: transform 0.2s ease;
+}
+
+.register-page .select-trigger[aria-expanded="true"] .select-chevron {
+  transform: rotate(180deg);
+}
+
+.register-page .select-menu {
+  position: absolute;
+  top: calc(100% - 1px);
+  right: -1px;
+  left: -1px;
+  z-index: 10;
+  display: grid;
+  gap: 2px;
+  padding: 7px 9px 9px;
+  border: 1px solid var(--darah);
+  border-top: 0;
+  border-radius: 0 0 14px 14px;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(40, 74, 79, 0.1);
+}
+
+.register-page .select-menu[hidden] {
+  display: none;
+}
+
+.register-page .select-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 32px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+  color: #334155;
+  font: inherit;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.register-page .select-option:hover,
+.register-page .select-option:focus-visible {
+  outline: 0;
+  color: #276f68;
+  background: #e8f7f4;
+}
+
+.register-page .select-option[aria-checked="true"] {
+  color: #276f68;
+  background: #e8f7f4;
+}
+
+.register-page .form-options {
+  color: #5f5254;
+}
+
+.register-page .form-options {
+  margin: 4px 0 22px;
+}
+
+/* 6. Opsi Remember Me & Forget Password */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 18px 0 26px;
+    padding: 0 6px; /* Memberi sedikit jarak agar tidak terlalu mepet ujung */
+    font-size: 0.85rem;
+}
+.forget-link {
+    color: #4a5568;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forget-link:hover {
+    color: #e6192e;
+    text-decoration: underline;
+}
+
+/* Teks Daftar di bawah tombol Masuk */
+.register-prompt {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 0.88rem;
+    color: #64748b;
+}
+
+.register-prompt a {
+    color: var(--darah); /* Atau #030a4c mengikuti warna tombol */
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.register-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* 7. Tombol Masuk */
+.btn-login {
+  width: 100%;
+  background-color: var(--darah);
+  color: var(--cream);
+  border: none;
+  border-radius: 50px;
+  padding: 13px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-login:hover {
+  background-color: var(--darah-tua);
+  transform: translateY(-2px);
+}
+/* Footer CSS*/
+footer {
+    background-color: var(--darah);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--r-4);
+    padding: var(--r-4);
+    border-top: 1px solid var(--garis-tegas);
+}
+.footer-content p {
+    color: var(--cream);
+    font-size: var(--t-sm);
+    margin: 0;
+}

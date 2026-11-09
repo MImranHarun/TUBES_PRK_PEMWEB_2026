@@ -18,7 +18,7 @@ $flashMessage = getFlash();
 <body>
     <header>
         <div class="header-title">
-            <img class="logo" src="assets/blood.svg" alt="OneBlood Logo">
+            <img class="logo" src="<?= e(base_url('assets/blood.svg')) ?>" alt="OneBlood Logo">
             <div class="header-text">
                 <p class="title">OneBlood</p>
                 <p class="subtitle">
@@ -29,7 +29,7 @@ $flashMessage = getFlash();
         <nav>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Beranda</a>
+                    <a href="<?= base_url('index.php') ?>" class="nav-link">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">Donor Darah</a>
@@ -39,6 +39,12 @@ $flashMessage = getFlash();
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">Tentang Kami</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('auth/login.php') ?>" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('auth/register.php') ?>" class="nav-link">Daftar</a>
                 </li>
             </ul>
         </nav>
