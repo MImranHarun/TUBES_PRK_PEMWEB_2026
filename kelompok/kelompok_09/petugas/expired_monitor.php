@@ -28,6 +28,7 @@ require_once __DIR__ . '/../includes/header.php';
         <div>
             <h1>Monitoring Kedaluwarsa</h1>
             <p>Pantau masa berlaku stok kantong darah.</p>
+            <a class="staff-service-back" href="<?= e(base_url('petugas/dashboard.php')) ?>">Kembali ke layanan</a>
         </div>
     </div>
 

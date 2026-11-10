@@ -1,4 +1,12 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $pageTitle = 'OneBlood - Sistem Informasi Donor Darah';
 require_once __DIR__ . '/includes/header.php';
 ?>
@@ -13,7 +21,7 @@ require_once __DIR__ . '/includes/header.php';
                     yang memudahkan masyarakat untuk mendapatkan informasi terkait donor darah,
                     stok darah, dan kegiatan donor darah di sekitar mereka.</p>
                 <div class="hero-buttons">
-                    <a href="<?= e(base_url('auth/register.php')) ?>" class="btn-pink">Daftar Pendonor</a>
+                    <a href="<?= e(base_url('pendonor/dashboard.php')) ?>" class="btn-pink">Donor Sekarang</a>
                     <a href="#" class="btn-pink">Selengkapnya</a>
                 </div>
             </div>
@@ -66,19 +74,75 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
-    <section class="butuhdarah">
+    <section class="butuhdarah" id="butuhdarah">
         <div class="butuhdarah-title">
             <h1>Kebutuhan Darah <span class="butuhdarah-title-highlight"> Urgent !</span></h1>
             <p>Mohon bantuan kepada seluruh Pendonor dan Relawan untuk dapat memenuhi kebutuhan darah mendesak. Silahkan menghubungi kontak person yang tersedia untuk berkoordinasi langsung dengan pihak Keluarga.</p>
+            <button class="butuhdarah-ajukan" type="button" id="open-blood-request">Ajukan Darah Darurat</button>
         </div>
+        <?php if (($_GET['pengajuan'] ?? '') === 'terkirim'): ?>
+            <p class="butuhdarah-feedback" role="status">Pengajuan berhasil dikirim dan akan ditinjau petugas sebelum ditampilkan.</p>
+        <?php elseif (($_GET['pengajuan'] ?? '') === 'gagal'): ?>
+            <p class="butuhdarah-feedback error" role="alert">Pengajuan belum berhasil dikirim. Silakan periksa data dan coba lagi.</p>
+        <?php endif; ?>
         <div class="butuhdarah-carousel" id="butuhdarah-carousel">
             <div class="butuhdarah-track" id="butuhdarah-track" aria-live="polite">
                 <p class="butuhdarah-message">Memuat kebutuhan darah...</p>
             </div>
             <div class="butuhdarah-dots" id="butuhdarah-dots" aria-label="Navigasi kebutuhan darah"></div>
         </div>
+        <dialog class="blood-request-dialog" id="blood-request-dialog" aria-labelledby="blood-request-title">
+            <form class="blood-request-form" action="<?= e(base_url('api/ajukan_darah_darurat.php')) ?>" method="post">
+                <div class="blood-request-heading">
+                    <div>
+                        <p class="emergency-eyebrow">PENGAJUAN PUBLIK</p>
+                        <h2 id="blood-request-title">Ajukan Darah Darurat</h2>
+                        <p>Pengajuan akan ditinjau petugas sebelum dipublikasikan.</p>
+                    </div>
+                    <button class="blood-request-close" type="button" id="close-blood-request" aria-label="Tutup form">&times;</button>
+                </div>
+                <input type="hidden" name="csrf_token" value="<?= e($_SESSION['csrf_token']) ?>">
+
+                <div class="blood-request-field">
+                    <label for="request-title">Judul pengumuman</label>
+                    <input id="request-title" name="judul_pesan" maxlength="150" placeholder="Contoh: Dibutuhkan pendonor darah segera" required>
+                </div>
+                <div class="blood-request-field">
+                    <label for="request-blood-type">Golongan darah dan Rhesus</label>
+                    <div class="blood-request-type-fields">
+                        <select id="request-blood-type" name="gol_darah" required>
+                            <option value="">Pilih golongan darah</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="AB">AB</option>
+                            <option value="O">O</option>
+                        </select>
+                        <select name="rhesus" aria-label="Rhesus" required>
+                            <option value="+">Positif (+)</option>
+                            <option value="-">Negatif (-)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="blood-request-field">
+                    <label for="request-hospital">Rumah sakit peminta</label>
+                    <input id="request-hospital" name="rs_peminta" maxlength="150" required>
+                </div>
+                <div class="blood-request-field">
+                    <label for="request-units">Jumlah kantong</label>
+                    <input id="request-units" type="number" name="kebutuhan_kantong" min="1" max="100000" required>
+                </div>
+                <div class="blood-request-field">
+                    <label for="request-contact">Kontak darurat</label>
+                    <input id="request-contact" name="kontak_darurat" maxlength="30" placeholder="Nomor telepon yang bisa dihubungi" required>
+                </div>
+                <div class="blood-request-actions">
+                    <button class="blood-request-cancel" type="button" id="cancel-blood-request">Batal</button>
+                    <button class="blood-request-submit" type="submit">Kirim Pengajuan</button>
+                </div>
+            </form>
+        </dialog>
     </section>
-    <section class="eligibility-section" id="cek-kelayakan">
+    <section class="kelayakan" id="kelayakan">
         <div class="eligibility-container">
             <div class="eligibility-intro">
                 <span class="eligibility-eyebrow">LANGKAH KECIL, DAMPAK BESAR</span>
@@ -267,8 +331,26 @@ require_once __DIR__ . '/includes/header.php';
             base_url('api/kebutuhan_darah.php'),
             JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
         ) ?>;
+        const kebutuhanAssetBase = <?= json_encode(
+            base_url('assets/tipedarah/'),
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        ) ?>;
+        const ikonGolonganDarah = {
+            'A+': 'a+.svg',
+            'A-': 'a-.svg',
+            'B+': 'b+.svg',
+            'B-': 'b-.svg',
+            'AB+': 'ab+.svg',
+            'AB-': 'ab-.svg',
+            'O+': 'o+.svg',
+            'O-': 'o-.svg'
+        };
         const kebutuhanTrack = document.getElementById('butuhdarah-track');
         const kebutuhanDots = document.getElementById('butuhdarah-dots');
+        const bloodRequestDialog = document.getElementById('blood-request-dialog');
+        document.getElementById('open-blood-request').addEventListener('click', () => bloodRequestDialog.showModal());
+        document.getElementById('close-blood-request').addEventListener('click', () => bloodRequestDialog.close());
+        document.getElementById('cancel-blood-request').addEventListener('click', () => bloodRequestDialog.close());
         let kebutuhanHalaman = 0;
         let kebutuhanRequestAktif = false;
 
@@ -278,10 +360,17 @@ require_once __DIR__ . '/includes/header.php';
 
             const golongan = document.createElement('div');
             golongan.className = 'butuhdarah-icon';
-            golongan.textContent = kebutuhan.gol_darah;
-            const rhesus = document.createElement('span');
-            rhesus.textContent = kebutuhan.rhesus;
-            golongan.append(rhesus);
+            const tipeDarah = `${String(kebutuhan.gol_darah || '').trim().toUpperCase()}${String(kebutuhan.rhesus || '').trim()}`;
+            const namaIkon = ikonGolonganDarah[tipeDarah];
+            if (namaIkon) {
+                const gambarGolongan = document.createElement('img');
+                gambarGolongan.src = `${kebutuhanAssetBase}${namaIkon}`;
+                gambarGolongan.alt = `Golongan darah ${tipeDarah}`;
+                gambarGolongan.loading = 'lazy';
+                golongan.append(gambarGolongan);
+            } else {
+                golongan.textContent = tipeDarah || 'Golongan darah';
+            }
 
             const info = document.createElement('div');
             info.className = 'butuhdarah-info';

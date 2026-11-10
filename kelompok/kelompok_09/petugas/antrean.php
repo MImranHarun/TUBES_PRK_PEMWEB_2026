@@ -336,6 +336,7 @@ require_once __DIR__ . '/../includes/header.php';
         <div>
             <h1>Antrean Skrining</h1>
             <p>Kelola booking pendonor yang masuk, periksa jawaban awal, dan lanjutkan pendonor ke proses verifikasi medis.</p>
+            <a class="staff-service-back" href="<?= e(base_url('petugas/dashboard.php')) ?>">Kembali ke layanan</a>
         </div>
     </div>
 
@@ -486,8 +487,6 @@ require_once __DIR__ . '/../includes/header.php';
                 </nav>
             <?php endif; ?>
         </div>
-
-        <p class="queue-note"><strong>Alur kerja:</strong> booking pendonor akan masuk dengan status <em>Menunggu</em>. Lakukan pemeriksaan melalui tombol <em>Mulai Skrining</em>. Status <em>Lolos</em> dapat ditandai <em>Selesai</em> setelah proses donor benar-benar selesai. Status <em>Tidak Lolos</em> tetap tersimpan sebagai riwayat pemeriksaan.</p>
     </section>
 </main>
 <?php

@@ -34,6 +34,7 @@ require_once __DIR__ . '/../includes/header.php';
         <div>
             <h1>Monitoring Suhu Kulkas</h1>
             <p>Pantau suhu tempat penyimpanan kantong darah.</p>
+            <a class="staff-service-back" href="<?= e(base_url('petugas/dashboard.php')) ?>">Kembali ke layanan</a>
         </div>
         <button class="inv-btn" onclick="dialogCatat.showModal()">+ Catat Suhu</button>
     </div>

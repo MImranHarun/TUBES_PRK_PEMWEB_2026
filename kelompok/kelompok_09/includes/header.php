@@ -4,6 +4,7 @@ require_once __DIR__ . '/../config/auth_check.php';
 
 $pageTitle = $pageTitle ?? 'OneBlood - Sistem Informasi Donor Darah';
 $userLogin = currentUser();
+$bodyClass = $bodyClass ?? '';
 getFlash();
 ?>
 
@@ -15,7 +16,7 @@ getFlash();
     <title><?= e($pageTitle) ?></title>
     <link rel="stylesheet" href="<?= e(base_url('css/style.css') . '?v=' . filemtime(__DIR__ . '/../css/style.css')) ?>">
 </head>
-<body>
+<body<?= $bodyClass !== '' ? ' class="' . e($bodyClass) . '"' : '' ?>>
     <header>
         <div class="header-title">
             <img class="logo" src="<?= e(base_url('assets/blood.svg')) ?>" alt="OneBlood Logo">
@@ -35,6 +36,9 @@ getFlash();
                     <li class="nav-item">
                         <a href="<?= e(base_url('admin/users.php')) ?>" class="nav-link">Manajemen</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('admin/laporan.php')) ?>" class="nav-link">Laporan</a>
+                    </li>
                 <?php elseif (($userLogin['role'] ?? '') === 'pendonor'): ?>
                     <li class="nav-item">
                         <a href="<?= e(base_url('index.php')) ?>" class="nav-link">Beranda</a>
@@ -46,7 +50,7 @@ getFlash();
                         <a href="<?= e(base_url('index.php#butuhdarah')) ?>" class="nav-link">ButuhDarah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= e(base_url('index.php#eligibility-section')) ?>" class="nav-link">Kalkulator</a>
+                        <a href="<?= e(base_url('index.php#kelayakan')) ?>" class="nav-link">Kelayakan</a>
                     </li>
                     <li class="nav-item">
                         <a href="<?= e(base_url('pendonor/dashboard.php')) ?>" class="nav-link">DonorDarah</a>
@@ -56,20 +60,20 @@ getFlash();
                         <a href="<?= e(base_url('index.php')) ?>" class="nav-link">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= e(base_url('index.php#stokdarah')) ?>" class="nav-link">Stok Darah</a>
+                        <a href="<?= e(base_url('petugas/dashboard.php')) ?>" class="nav-link">Layanan</a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
                         <a href="<?= e(base_url('index.php')) ?>" class="nav-link">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Donor Darah</a>
+                        <a href="<?= e(base_url('pendonor/dashboard.php')) ?>" class="nav-link">DonorDarah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= e(base_url('index.php#stokdarah')) ?>" class="nav-link">Stok Darah</a>
+                        <a href="<?= e(base_url('index.php#stokdarah')) ?>" class="nav-link">StokDarah</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Tentang Kami</a>
+                        <a href="<?= e(base_url('index.php#butuhdarah')) ?>" class="nav-link">ButuhDarah</a>
                     </li>
                 <?php endif; ?>
                 <?php if ($userLogin !== null): ?>

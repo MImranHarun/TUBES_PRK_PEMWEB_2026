@@ -315,101 +315,16 @@ $events = $listEvents->fetchAll();
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<style>
-    .event-page { padding-top: var(--r-6); }
-    .event-page .inv-head { align-items: center; gap: 18px; }
-    .event-page .inv-head p { max-width: 760px; line-height: 1.55; }
-    .event-primary-btn, .event-secondary-btn, .event-danger-btn {
-        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-        border: 0; border-radius: 999px; padding: 11px 18px; font: inherit;
-        font-weight: 700; text-decoration: none; cursor: pointer; transition: .18s ease;
-    }
-    .event-primary-btn { background: var(--darah); color: var(--cream); }
-    .event-primary-btn:hover { background: var(--darah-tua); transform: translateY(-1px); }
-    .event-secondary-btn { background: var(--info-pucat); color: var(--info); }
-    .event-secondary-btn:hover { filter: brightness(.97); }
-    .event-danger-btn { background: var(--darah-pucat); color: var(--darah); }
-    .event-danger-btn:hover { background: #edc9c0; }
-    .event-stats { max-width: 1600px; margin: 0 auto var(--r-5); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--r-4); }
-    .event-stat { min-width: 0; padding: 20px 22px; background: var(--cream); border: 1px solid var(--garis); border-radius: 18px; box-shadow: 0 8px 22px rgba(9,25,69,.07); }
-    .event-stat span { display: block; color: var(--darah); font-size: 2rem; font-weight: 800; line-height: 1.1; }
-    .event-stat p { margin: 7px 0 0; color: var(--tinta-redup); font-size: var(--t-sm); }
-    .event-toolbar { display: flex; align-items: end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
-    .event-filter { display: flex; align-items: end; gap: 10px; flex-wrap: wrap; flex: 1; }
-    .event-filter-field { display: grid; gap: 6px; min-width: 180px; }
-    .event-filter-field.search-field { flex: 1; min-width: 220px; }
-    .event-filter-field label, .event-dialog label { color: var(--tinta); font-size: var(--t-sm); font-weight: 700; }
-    .event-filter-field input, .event-filter-field select, .event-dialog input, .event-dialog select {
-        width: 100%; min-height: 44px; box-sizing: border-box; border: 1px solid var(--garis-tegas);
-        border-radius: 11px; background: #fff; color: var(--tinta); padding: 10px 13px; font: inherit;
-    }
-    .event-filter-field input:focus, .event-filter-field select:focus, .event-dialog input:focus, .event-dialog select:focus { outline: 3px solid rgba(176,48,60,.16); border-color: var(--darah); }
-    .event-filter-actions { display: flex; align-items: center; gap: 8px; }
-    .event-count { color: var(--tinta-redup); font-size: var(--t-sm); white-space: nowrap; }
-    .event-table-wrap { width: 100%; overflow-x: auto; }
-    .event-table { min-width: 980px; }
-    .event-table th { white-space: nowrap; }
-    .event-table td { vertical-align: middle; }
-    .event-name { display: block; color: var(--tinta); font-weight: 800; }
-    .event-location { display: block; margin-top: 4px; color: var(--tinta-redup); font-size: var(--t-xs); }
-    .event-capacity { display: grid; gap: 5px; min-width: 105px; }
-    .event-capacity strong { color: var(--tinta); }
-    .event-capacity small { color: var(--tinta-redup); }
-    .event-progress { width: 100%; height: 7px; overflow: hidden; border-radius: 999px; background: #eadfd1; }
-    .event-progress span { display: block; height: 100%; border-radius: inherit; background: var(--sukses); }
-    .event-status { display: inline-block; padding: 6px 10px; border-radius: 999px; font-size: var(--t-xs); font-weight: 800; white-space: nowrap; }
-    .event-status.akan_datang { background: var(--info-pucat); color: var(--info); }
-    .event-status.berlangsung { background: var(--sukses-pucat); color: var(--sukses); }
-    .event-status.selesai { background: var(--warm-cream); color: var(--tinta-redup); }
-    .event-actions { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
-    .event-actions button { padding: 8px 12px; font-size: var(--t-xs); }
-    .event-actions form { margin: 0; }
-    .event-action-locked { display: block; margin-top: 5px; color: var(--tinta-redup); font-size: 11px; white-space: normal; }
-    .event-notice { max-width: 1600px; margin: 0 auto var(--r-4); padding: 13px 16px; border-radius: 12px; font-weight: 600; }
-    .event-notice.success { color: var(--sukses); background: var(--sukses-pucat); }
-    .event-notice.warning { color: var(--waspada); background: var(--waspada-pucat); }
-    .event-notice.error { color: var(--darah); background: var(--darah-pucat); }
-    .event-info { margin: 18px 0 0; padding: 13px 15px; border-radius: 12px; background: #f8efdf; color: var(--tinta-redup); font-size: var(--t-sm); line-height: 1.55; }
-    .event-dialog { width: min(700px, 94vw); max-width: 700px; max-height: 90vh; overflow-y: auto; }
-    .event-dialog::backdrop { background: rgba(35, 10, 16, .55); backdrop-filter: blur(2px); }
-    .event-dialog-header { display: flex; justify-content: space-between; align-items: start; gap: 15px; margin-bottom: 20px; }
-    .event-dialog-header h2 { margin: 0 0 5px; }
-    .event-dialog-header p { margin: 0; color: var(--tinta-redup); font-size: var(--t-sm); }
-    .event-dialog-close { border: 0; background: transparent; color: var(--tinta-redup); font-size: 1.6rem; cursor: pointer; line-height: 1; }
-    .event-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
-    .event-form-field { display: grid; gap: 7px; margin-bottom: 15px; }
-    .event-form-field.full { grid-column: 1 / -1; }
-    .event-form-help { margin: -3px 0 12px; color: var(--tinta-redup); font-size: var(--t-xs); }
-    .event-booking-warning { margin: 0 0 15px; padding: 11px 13px; border-radius: 10px; background: var(--waspada-pucat); color: var(--waspada); font-size: var(--t-sm); line-height: 1.5; }
-    .event-dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
-    .event-empty { padding: 65px 20px !important; text-align: center; color: var(--tinta-redup); }
-    .event-empty strong { display: block; margin-bottom: 7px; color: var(--tinta); font-size: 1.05rem; }
-    @media (max-width: 900px) { .event-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 700px) {
-        .event-page { padding: 28px 16px; }
-        .event-page .inv-head { align-items: stretch; flex-direction: column; }
-        .event-page .inv-head .event-primary-btn { align-self: flex-start; }
-        .event-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-        .event-stat { padding: 16px; }
-        .event-stat span { font-size: 1.6rem; }
-        .event-toolbar, .event-filter { align-items: stretch; flex-direction: column; }
-        .event-filter-field, .event-filter-field.search-field { min-width: 0; width: 100%; }
-        .event-filter-actions { width: 100%; }
-        .event-filter-actions button, .event-filter-actions a { flex: 1; }
-        .event-form-grid { grid-template-columns: 1fr; }
-        .event-form-field.full { grid-column: auto; }
-        .event-dialog-actions { flex-direction: column-reverse; }
-        .event-dialog-actions button { width: 100%; }
-    }
-</style>
-
 <main class="inv-wrapper event-page">
     <div class="inv-head">
         <div>
             <h1>Jadwal Event Donor</h1>
             <p>Kelola jadwal kegiatan donor darah, lokasi pelaksanaan, kuota pendonor, dan status kegiatan.</p>
         </div>
-        <button class="event-primary-btn" type="button" id="openCreateEvent">+ Tambah Event</button>
+        <div class="event-header-actions">
+            <a class="event-secondary-btn" href="<?= e(base_url('petugas/dashboard.php')) ?>">Kembali ke layanan</a>
+            <button class="event-primary-btn" type="button" id="openCreateEvent">+ Tambah Event</button>
+        </div>
     </div>
 
     <?php if (is_array($flash) && isset($flash['message'])): ?>
@@ -495,9 +410,7 @@ require_once __DIR__ . '/../includes/header.php';
                                 <td>
                                     <div class="event-capacity">
                                         <strong><?= $registered ?> / <?= $capacity ?></strong>
-                                        <div class="event-progress" aria-label="<?= $percentage ?> persen kuota terisi">
-                                            <span style="width: <?= $percentage ?>%"></span>
-                                        </div>
+                                        <progress class="event-progress" value="<?= $registered ?>" max="<?= max(1, $capacity) ?>" aria-label="<?= $percentage ?> persen kuota terisi"><?= $percentage ?>%</progress>
                                         <small><?= $remaining ?> slot tersisa</small>
                                     </div>
                                 </td>
@@ -527,12 +440,7 @@ require_once __DIR__ . '/../includes/header.php';
                 </tbody>
             </table>
         </div>
-
-        <p class="event-info">
-            <strong>Catatan:</strong> kuota tidak dapat dikurangi hingga lebih kecil dari jumlah pendaftar yang sudah tercatat. Event yang sudah memiliki pendaftar tidak dapat dihapus agar data booking dan riwayat pendonor tetap aman. Untuk menutup pendaftaran, ubah status event menjadi <strong>Selesai</strong>.
-        </p>
     </section>
-</main>
 
 <dialog class="inv-dialog event-dialog" id="eventDialog" aria-labelledby="eventDialogTitle">
     <div class="event-dialog-header">
@@ -592,6 +500,7 @@ require_once __DIR__ . '/../includes/header.php';
         </div>
     </form>
 </dialog>
+</main>
 
 <script>
 (() => {

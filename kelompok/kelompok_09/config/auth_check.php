@@ -32,7 +32,7 @@ function redirectByRole(?string $role = null): void {
     $targetRole = $role ?? $_SESSION['role'] ?? '';
     $destinations = [
         'admin' => 'admin/users.php',
-        'petugas' => 'petugas/event.php',
+        'petugas' => 'petugas/dashboard.php',
         'pendonor' => 'index.php',
     ];
     $destination = $destinations[$targetRole] ?? 'index.php';

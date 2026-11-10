@@ -277,6 +277,7 @@ require_once __DIR__ . '/../includes/header.php';
             <a class="screen-back" href="<?= e(base_url('petugas/antrean.php')) ?>">&larr; Kembali ke Antrean</a>
             <h1>Verifikasi Skrining Medis</h1>
             <p>Catat hasil pemeriksaan pendonor dan tetapkan keputusan skrining.</p>
+            <a class="staff-service-back" href="<?= e(base_url('petugas/dashboard.php')) ?>">Kembali ke layanan</a>
         </div>
     </div>
 

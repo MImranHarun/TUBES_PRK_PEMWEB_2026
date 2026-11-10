@@ -100,7 +100,7 @@ CREATE TABLE sos_broadcast (
     rs_peminta VARCHAR(150) NOT NULL,
     kebutuhan_kantong INT NOT NULL DEFAULT 1,
     kontak_darurat VARCHAR(30) NOT NULL,
-    status_aktif TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1=Tampil di Banner, 0=Selesai',
+    status_aktif TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1=Tampil di Banner, 0=Selesai, 2=Menunggu persetujuan',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

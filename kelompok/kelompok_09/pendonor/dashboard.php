@@ -24,7 +24,7 @@ require __DIR__ . '/../includes/header.php';
             <h1>Halo, <?= e(currentUser()['nama']) ?></h1>
             <p>Setiap donor membawa harapan. Pantau aktivitas dan siapkan jadwal donor berikutnya di sini.</p>
         </div>
-        <a class="donor-welcome-link" href="booking.php">Cari jadwal donor <span aria-hidden="true">→</span></a>
+        <a class="donor-welcome-link" href="booking.php">Cari jadwal donor</a>
         <span class="donor-welcome-decoration" aria-hidden="true">+</span>
     </section>
 
@@ -57,14 +57,10 @@ require __DIR__ . '/../includes/header.php';
         </div>
         <div class="donor-action-grid">
             <a class="donor-action-card" href="booking.php">
-                <span class="donor-action-icon" aria-hidden="true">01</span>
                 <span class="donor-action-copy"><strong>Booking donor</strong><small>Pilih jadwal dan daftarkan diri untuk donor darah.</small></span>
-                <span class="donor-action-arrow" aria-hidden="true">↗</span>
             </a>
             <a class="donor-action-card donor-action-card-warm" href="kartu.php">
-                <span class="donor-action-icon" aria-hidden="true">02</span>
                 <span class="donor-action-copy"><strong>Kartu pendonor</strong><small>Lihat atau cetak kartu identitas pendonor Anda.</small></span>
-                <span class="donor-action-arrow" aria-hidden="true">↗</span>
             </a>
         </div>
     </section>
@@ -75,7 +71,7 @@ require __DIR__ . '/../includes/header.php';
                 <p class="donor-eyebrow">PERJALANAN KEBAIKAN</p>
                 <h2 id="donor-history-title">Riwayat donor terbaru</h2>
             </div>
-            <a class="donor-history-link" href="riwayat.php">Lihat semua <span aria-hidden="true">→</span></a>
+            <a class="donor-history-link" href="riwayat.php">Lihat semua</a>
         </div>
         <div class="donor-history-panel">
             <?php if (!$riwayat): ?>

@@ -33,7 +33,7 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 <main class="inv-wrapper">
     <div class="inv-head">
-        <div><h1>Inventaris Kantong Darah</h1><p>Kelola data stok kantong darah OneBlood.</p></div>
+        <div><h1>Inventaris Kantong Darah</h1><p>Kelola data stok kantong darah OneBlood.</p><a class="staff-service-back" href="<?= e(base_url('petugas/dashboard.php')) ?>">Kembali ke layanan</a></div>
         <button class="inv-btn" onclick="tambah.showModal()">+ Tambah Kantong</button></div>
 
     <div class="inv-card">

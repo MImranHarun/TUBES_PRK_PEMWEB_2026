@@ -1,13 +1,8 @@
 <?php
-$hideSidebar = $hideSidebar ?? false;
 ?>
-<?php if (!$hideSidebar): ?>
-    </main>
-</div>
-<?php endif; ?>
     <footer>
         <div class="header-title">
-            <img class="logo" src="assets/blood.svg" alt="OneBlood Logo">
+            <img class="logo" src="<?= e(base_url('assets/blood.svg')) ?>" alt="OneBlood Logo">
             <div class="header-text">
                 <p class="title">OneBlood</p>
                 <p class="subtitle">Sistem Donor Darah Terpadu</p>

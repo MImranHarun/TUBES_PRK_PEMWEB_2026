@@ -10,26 +10,56 @@ $query = $db->prepare('SELECT id, nama, gol_darah, rhesus, tgl_donor_terakhir FR
 $query->execute([currentUser()['id']]);
 $profil = $query->fetch();
 $pageTitle = 'Kartu Pendonor | OneBlood';
+$bodyClass = 'donor-card-print-page';
 require __DIR__ . '/../includes/header.php';
 ?>
-<style media="print">
-    body > :not(main), .no-print { display: none !important; }
-    .inv-wrapper, .inv-card { background: white; box-shadow: none; padding: 0; }
-</style>
-<main class="inv-wrapper">
-    <div class="inv-head"><h1>Kartu Pendonor</h1></div>
-    <section class="inv-card">
-        <p class="no-print"><a href="dashboard.php">Kembali ke Dashboard</a></p>
-        <?php if (!$profil): ?>
-            <p>Profil pendonor tidak ditemukan.</p>
-        <?php else: ?>
-            <h2>OneBlood · <?= e($profil['nama']) ?></h2>
-            <p>ID Pendonor <strong>#<?= (int)$profil['id'] ?></strong></p>
-            <p>Golongan darah <strong class="inv-badge"><?= e($profil['gol_darah'] ? $profil['gol_darah'] . $profil['rhesus'] : 'Belum diisi') ?></strong></p>
-            <p>Donor terakhir <strong><?= e(tgl_indo($profil['tgl_donor_terakhir'])) ?></strong></p>
-            <button class="inv-btn no-print" type="button" onclick="window.print()">Cetak Kartu</button>
-        <?php endif; ?>
+<main class="donor-dashboard donor-page donor-card-page">
+    <section class="donor-welcome no-print">
+        <div class="donor-welcome-copy">
+            <p class="donor-eyebrow">IDENTITAS PENDONOR</p>
+            <h1>Kartu pendonor</h1>
+            <p>Kartu identitas donor darah Anda. Cetak dan simpan untuk keperluan donor.</p>
+        </div>
+        <a class="donor-welcome-link" href="dashboard.php">Kembali ke dashboard <span aria-hidden="true">→</span></a>
+        <span class="donor-welcome-decoration" aria-hidden="true">+</span>
     </section>
+
+    <?php if (!$profil): ?>
+        <section class="donor-content-panel donor-empty">
+            <span aria-hidden="true">♥</span>
+            <h2>Profil pendonor tidak ditemukan</h2>
+            <p>Data kartu belum dapat ditampilkan.</p>
+        </section>
+    <?php else: ?>
+        <section class="donor-membership-card" aria-label="Kartu identitas pendonor">
+            <div class="donor-membership-top">
+                <div class="donor-membership-brand">
+                    <span class="donor-membership-drop" aria-hidden="true">+</span>
+                    <span><strong>OneBlood</strong><small>DONOR CARD</small></span>
+                </div>
+                <span class="donor-membership-label">KARTU PENDONOR</span>
+            </div>
+            <div class="donor-membership-content">
+                <div class="donor-membership-person">
+                    <p>IDENTITAS PENDONOR</p>
+                    <h2><?= e($profil['nama']) ?></h2>
+                    <span>ID Pendonor #<?= (int)$profil['id'] ?></span>
+                </div>
+                <div class="donor-membership-blood">
+                    <small>GOLONGAN DARAH</small>
+                    <strong><?= e($profil['gol_darah'] ? $profil['gol_darah'] . $profil['rhesus'] : '—') ?></strong>
+                </div>
+            </div>
+            <div class="donor-membership-bottom">
+                <span>Donor terakhir</span>
+                <strong><?= e(tgl_indo($profil['tgl_donor_terakhir'])) ?></strong>
+            </div>
+        </section>
+        <div class="donor-card-actions no-print">
+            <p>Simpan kartu ini atau cetak untuk ditunjukkan saat diperlukan.</p>
+            <button class="donor-submit-button" type="button" onclick="window.print()">Cetak kartu <span aria-hidden="true">→</span></button>
+        </div>
+    <?php endif; ?>
 </main>
 <?php
 $hideSidebar = true;

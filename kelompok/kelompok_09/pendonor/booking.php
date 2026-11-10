@@ -76,44 +76,87 @@ $bisaBooking = array_filter($jadwal, fn($event) => $event['sisa'] > 0 && !$event
 $pageTitle = 'Booking Donor | OneBlood';
 require __DIR__ . '/../includes/header.php';
 ?>
-<main class="inv-wrapper">
-    <div class="inv-head"><h1>Booking Donor</h1></div>
-    <section class="inv-card">
-        <p><a href="dashboard.php">Kembali ke Dashboard</a> · <a href="riwayat.php">Riwayat Donor</a></p>
-        <?php if ($error !== ''): ?><p class="inv-error" role="alert"><?= e($error) ?></p><?php endif; ?>
-        <?php if (!$jadwal): ?>
-            <p>Belum ada jadwal donor yang terbuka.</p>
-        <?php else: ?>
-            <form method="post">
-                <input type="hidden" name="token" value="<?= e($_SESSION['booking_token']) ?>">
-                <fieldset>
-                    <legend>Pilih jadwal donor</legend>
-                    <?php foreach ($jadwal as $event): ?>
-                        <p><label>
-                            <input type="radio" name="event_id" value="<?= (int)$event['id'] ?>" required
-                                <?= $eventId === (int)$event['id'] ? 'checked' : '' ?> <?= $event['sisa'] <= 0 || $event['sudah_daftar'] ? 'disabled' : '' ?>>
-                            <strong><?= e($event['nama_event']) ?></strong> · <?= e($event['lokasi']) ?> · <?= e(tgl_indo($event['tanggal'])) ?>,
-                            <?= e(substr($event['jam_mulai'], 0, 5)) ?>–<?= e(substr($event['jam_selesai'], 0, 5)) ?> WIB ·
-                            <?= $event['sudah_daftar'] ? 'Sudah terdaftar' : 'Sisa kuota ' . max(0, (int)$event['sisa']) ?>
-                        </label></p>
-                    <?php endforeach; ?>
-                </fieldset>
-                <?php if ($bisaBooking): ?>
-                    <p>Isi jawaban awal berikut. Hasil skrining ditentukan oleh petugas.</p>
-                    <?php foreach ($pertanyaan as $kolom => $label): ?>
-                        <fieldset>
-                            <legend><?= e($label) ?></legend>
-                            <?php foreach (['1' => 'Ya', '0' => 'Tidak'] as $nilai => $teks): ?>
-                                <label><input type="radio" name="<?= e($kolom) ?>" value="<?= $nilai ?>" required
-                                    <?= ($_POST[$kolom] ?? '') === (string)$nilai ? 'checked' : '' ?>> <?= e($teks) ?></label>
-                            <?php endforeach; ?>
-                        </fieldset>
-                    <?php endforeach; ?>
-                    <p><button class="inv-btn" type="submit">Daftar Donor</button></p>
-                <?php endif; ?>
-            </form>
-        <?php endif; ?>
+<main class="donor-dashboard donor-page">
+    <section class="donor-welcome">
+        <div class="donor-welcome-copy">
+            <p class="donor-eyebrow">JADWAL DONOR</p>
+            <h1>Booking donor</h1>
+            <p>Pilih jadwal yang sesuai dan lengkapi pertanyaan awal sebelum mendaftar.</p>
+        </div>
+        <a class="donor-welcome-link" href="dashboard.php">Kembali ke dashboard</a>
+        <span class="donor-welcome-decoration" aria-hidden="true">+</span>
     </section>
+
+    <?php if ($error !== ''): ?>
+        <p class="donor-alert" role="alert"><?= e($error) ?></p>
+    <?php endif; ?>
+
+    <?php if (!$jadwal): ?>
+        <section class="donor-content-panel donor-empty">
+            <span aria-hidden="true">♥</span>
+            <h2>Belum ada jadwal donor</h2>
+            <p>Jadwal donor yang dapat dipesan akan ditampilkan di sini.</p>
+        </section>
+    <?php else: ?>
+        <form class="donor-booking-form" method="post">
+            <input type="hidden" name="token" value="<?= e($_SESSION['booking_token']) ?>">
+            <section class="donor-content-panel">
+                <div class="donor-section-heading">
+                    <div>
+                        <p class="donor-eyebrow">LANGKAH 1</p>
+                        <h2>Pilih jadwal donor</h2>
+                    </div>
+                    <a class="donor-history-link" href="riwayat.php">Riwayat donor <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="donor-event-list">
+                    <?php foreach ($jadwal as $event): ?>
+                        <?php $jadwalNonaktif = $event['sisa'] <= 0 || $event['sudah_daftar']; ?>
+                        <label class="donor-event-option<?= $jadwalNonaktif ? ' is-disabled' : '' ?>">
+                            <input type="radio" name="event_id" value="<?= (int)$event['id'] ?>" required
+                                <?= $eventId === (int)$event['id'] ? 'checked' : '' ?> <?= $jadwalNonaktif ? 'disabled' : '' ?>>
+                            <span class="donor-event-details">
+                                <strong><?= e($event['nama_event']) ?></strong>
+                                <span><?= e($event['lokasi']) ?></span>
+                                <span><?= e(tgl_indo($event['tanggal'])) ?> · <?= e(substr($event['jam_mulai'], 0, 5)) ?>–<?= e(substr($event['jam_selesai'], 0, 5)) ?> WIB</span>
+                            </span>
+                            <span class="donor-event-capacity<?= $jadwalNonaktif ? ' is-disabled' : '' ?>">
+                                <?= $event['sudah_daftar'] ? 'Sudah terdaftar' : ($event['sisa'] <= 0 ? 'Kuota penuh' : 'Sisa kuota ' . max(0, (int)$event['sisa'])) ?>
+                            </span>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </section>
+
+            <?php if ($bisaBooking): ?>
+                <section class="donor-content-panel">
+                    <div class="donor-section-heading">
+                        <div>
+                            <p class="donor-eyebrow">LANGKAH 2</p>
+                            <h2>Pertanyaan awal</h2>
+                        </div>
+                    </div>
+                    <p class="donor-form-note">Jawaban ini menjadi informasi awal. Keputusan skrining tetap ditentukan oleh petugas.</p>
+                    <div class="donor-screening-list">
+                        <?php foreach ($pertanyaan as $kolom => $label): ?>
+                            <fieldset class="donor-screening-question">
+                                <legend><?= e($label) ?></legend>
+                                <div class="donor-answer-options">
+                                    <?php foreach (['1' => 'Ya', '0' => 'Tidak'] as $nilai => $teks): ?>
+                                        <label>
+                                            <input type="radio" name="<?= e($kolom) ?>" value="<?= $nilai ?>" required
+                                                <?= ($_POST[$kolom] ?? '') === (string)$nilai ? 'checked' : '' ?>>
+                                            <span><?= e($teks) ?></span>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                            </fieldset>
+                        <?php endforeach; ?>
+                    </div>
+                    <button class="donor-submit-button" type="submit">Daftar donor <span aria-hidden="true">→</span></button>
+                </section>
+            <?php endif; ?>
+        </form>
+    <?php endif; ?>
 </main>
 <?php
 $hideSidebar = true;

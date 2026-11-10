@@ -9,7 +9,6 @@ $errors    = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = (string)($_POST['action'] ?? '');
 
-    // A. TAMBAH PENGGUNA BARU (CREATE)
     if ($action === 'create') {
         $nama      = trim((string)($_POST['nama'] ?? ''));
         $email     = trim((string)($_POST['email'] ?? ''));
@@ -209,6 +208,8 @@ try {
         }
     }
 } catch (PDOException $e) {
+    error_log('Gagal menghitung ringkasan akun pengguna: ' . $e->getMessage());
+    $errors[] = 'Ringkasan pengguna sementara tidak dapat dimuat.';
 }
 
 require_once __DIR__ . '/../includes/header.php';
