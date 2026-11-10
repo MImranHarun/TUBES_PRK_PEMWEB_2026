@@ -28,18 +28,50 @@ getFlash();
         </div>
         <nav>
             <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="<?= base_url('index.php') ?>" class="nav-link">Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Donor Darah</a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= e(base_url('index.php#stokdarah')) ?>" class="nav-link">Stok Darah</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Tentang Kami</a>
-                </li>
+                <?php if (($userLogin['role'] ?? '') === 'admin'): ?>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php')) ?>" class="nav-link">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('admin/users.php')) ?>" class="nav-link">Manajemen</a>
+                    </li>
+                <?php elseif (($userLogin['role'] ?? '') === 'pendonor'): ?>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php')) ?>" class="nav-link">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php#stokdarah')) ?>" class="nav-link">StokDarah</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php#butuhdarah')) ?>" class="nav-link">ButuhDarah</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php#eligibility-section')) ?>" class="nav-link">Kalkulator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('pendonor/dashboard.php')) ?>" class="nav-link">DonorDarah</a>
+                    </li>
+                <?php elseif (($userLogin['role'] ?? '') === 'petugas'): ?>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php')) ?>" class="nav-link">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php#stokdarah')) ?>" class="nav-link">Stok Darah</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php')) ?>" class="nav-link">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Donor Darah</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= e(base_url('index.php#stokdarah')) ?>" class="nav-link">Stok Darah</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Tentang Kami</a>
+                    </li>
+                <?php endif; ?>
                 <?php if ($userLogin !== null): ?>
                     <li class="nav-item">
                         <details class="account-menu">

@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../config/auth_check.php';
 
 if (isLoggedIn()) {
-    redirectByRole();
+    redirectByRole ();
 }
 
 $pageTitle = 'OneBlood Login';
@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['gol_darah'] = (string)($user['gol_darah'] ?? '-');
                     $_SESSION['rhesus']    = (string)($user['rhesus'] ?? '');
 
-                    setFlash('success', 'Selamat datang kembali, ' . $user['nama'] . '!');
                     redirectByRole((string)$user['role']);
                 }
             } else {
