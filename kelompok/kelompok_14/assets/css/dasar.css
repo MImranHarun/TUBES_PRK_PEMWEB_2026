@@ -1,0 +1,75 @@
+
+
+:root {
+  /* Warna Semantik (Netral terhadap tema & lulus kontras WCAG) */
+  --sukses-bg: #DCFCE7;
+  --sukses-teks: #14532D;
+  --galat-bg:  #FEE2E2;
+  --galat-teks:  #7F1D1D;
+  --netral-bg: #E5E7EB;
+  --netral-teks: #374151;
+
+  /* Border radius bulat khas claymorphism */
+  --radius-s: 12px;
+  --radius-m: 20px;
+  --radius-l: 28px;
+
+  /* Bayangan Claymorphism (Timbul & Ditekan) */
+  --bayangan-gelap: color-mix(in srgb, var(--teks) 22%, transparent);
+  --bayangan-terang: rgb(255 255 255 / 0.85);
+
+  --clay-timbul:
+    8px 8px 18px var(--bayangan-gelap),
+    -6px -6px 14px var(--bayangan-terang),
+    inset -3px -3px 6px color-mix(in srgb, var(--teks) 10%, transparent),
+    inset 3px 3px 6px rgb(255 255 255 / 0.7);
+
+  --clay-tekan:
+    inset 5px 5px 10px var(--bayangan-gelap),
+    inset -4px -4px 8px var(--bayangan-terang);
+
+  /* Font bawaan sistem yang ramah dan membulat */
+  --font-judul: 'Fredoka', 'Nunito', system-ui, -apple-system, sans-serif;
+  --font-isi: 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+/* Reset Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Pengaturan Dasar Halaman */
+body {
+  font-family: var(--font-isi);
+  background-color: var(--latar);
+  color: var(--teks);
+  min-height: 100vh;
+  line-height: 1.5;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Tipografi Judul */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-judul);
+  color: var(--teks);
+  line-height: 1.25;
+}
+
+/* Tautan teks */
+a {
+  color: var(--teks);
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Indikator fokus keyboard untuk aksesibilitas (kontras tinggi 8:1) */
+:focus-visible {
+  outline: 3px solid var(--teks);
+  outline-offset: 2px;
+}

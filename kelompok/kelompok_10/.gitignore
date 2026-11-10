@@ -1,0 +1,23 @@
+# Environment dan kredensial lokal
+.env
+.env.*
+!.env.example
+
+# Log
+*.log
+logs/
+
+# File sementara
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Dependency hasil instalasi lokal
+vendor/
+node_modules/
+
+# File konfigurasi editor lokal
+.vscode/
+.idea/

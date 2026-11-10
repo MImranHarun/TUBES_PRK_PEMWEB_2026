@@ -1,0 +1,1351 @@
+
+/* =====================================================
+   LABCAT - USER PAGE STYLESHEET
+   Laboratory Catalog System
+   Halaman: Beranda, Katalog, Detail Alat
+   ===================================================== */
+
+/* 1. FONT DAN VARIABEL */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --navy: #123a61;
+    --navy-dark: #102f50;
+    --navy-light: #1d527d;
+    --blue: #347db7;
+    --blue-soft: #eaf3fb;
+    --ink: #1c3048;
+    --muted: #74879a;
+    --line: #e3eaf0;
+    --background: #f7f9fc;
+    --white: #ffffff;
+    --shadow: 0 8px 22px rgba(18, 58, 97, 0.08);
+    --radius: 14px;
+}
+
+/* 2. RESET */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    margin: 0;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--white);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+}
+
+.container {
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto;
+}
+
+/* SCREEN READER */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 3. NAVBAR USER */
+.site-header {
+    height: 78px;
+    background: var(--navy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 14px rgba(15, 43, 70, 0.12);
+}
+
+.nav-wrap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--white);
+    flex-shrink: 0;
+}
+
+.brand-icon {
+    width: 43px;
+    height: 43px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.brand-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-copy strong {
+    font: 800 24px 'Manrope', sans-serif;
+    letter-spacing: 0.7px;
+}
+
+.brand-copy small {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    color: #c0d5e4;
+    margin-top: 5px;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    height: 100%;
+}
+
+.main-nav > a:not(.btn) {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: #e3edf5;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.main-nav > a.active,
+.main-nav > a:hover {
+    color: #ffffff;
+}
+
+.main-nav > a.active::after {
+    content: "";
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #d9edf8;
+    border-radius: 2px;
+}
+
+/* 4. BUTTON */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 17px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--navy);
+    color: #ffffff;
+    box-shadow: 0 5px 12px rgba(16, 47, 80, 0.12);
+}
+
+.btn-primary:hover {
+    background: #1b4b77;
+}
+
+.btn-light {
+    background: #ffffff;
+    color: var(--navy);
+    border-color: #dfe8f0;
+}
+
+.btn-light:hover {
+    background: #edf5fb;
+}
+
+.btn-outline {
+    background: #ffffff;
+    color: #40566d;
+    border-color: #d8e2eb;
+}
+
+.btn-outline:hover {
+    background: #f0f6fb;
+    border-color: #9dbbd4;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-login {
+    padding: 12px 19px;
+    border-radius: 999px;
+    font-size: 13px;
+}
+
+.login-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-icon svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* MENU MOBILE */
+.nav-toggle {
+    display: none;
+    background: #ffffff;
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: var(--navy);
+    font-size: 20px;
+}
+
+/* 5. HERO BERANDA */
+.hero {
+    background: linear-gradient(
+        110deg,
+        #102f50 0%,
+        #174c78 60%,
+        #286a9c 100%
+    );
+    color: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    right: -120px;
+    top: -220px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 40px rgba(255, 255, 255, 0.025),
+        0 0 0 85px rgba(255, 255, 255, 0.02);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    right: 8%;
+    bottom: -180px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+}
+
+.hero-inner {
+    min-height: 340px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-copy {
+    width: 62%;
+    padding: 48px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    font-weight: 700;
+    color: #b6d6ec;
+}
+
+.eyebrow-blue {
+    color: #3976ad;
+}
+
+.hero h1 {
+    font: 800 48px/1.12 'Manrope', sans-serif;
+    letter-spacing: -1.2px;
+    margin: 14px 0;
+}
+
+.hero-copy p {
+    max-width: 560px;
+    color: #d7e6f1;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* 6. FLASH MESSAGE */
+.flash-wrap {
+    padding-top: 16px;
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 9px;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.alert-success {
+    background: #e8f7ef;
+    color: #176b48;
+    border: 1px solid #ccebd9;
+}
+
+.alert-danger {
+    background: #fff0ef;
+    color: #a63838;
+    border: 1px solid #f3d1ce;
+}
+
+.alert-warning {
+    background: #fff7e7;
+    color: #8c6417;
+    border: 1px solid #f3e4bd;
+}
+
+/* 7. KATALOG */
+.catalog-section {
+    padding-top: 36px;
+    padding-bottom: 62px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 800 25px 'Manrope', sans-serif;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+}
+
+.heading-accent {
+    display: inline-block;
+    width: 4px;
+    height: 26px;
+    background: #347db7;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+/* 8. SEARCH DAN FILTER */
+.catalog-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 25px;
+}
+
+.search-box,
+.filter-box {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    border: 1px solid #dfe7ee;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 0 15px;
+    color: #71869a;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus-within,
+.filter-box:focus-within {
+    border-color: #5792c2;
+    box-shadow: 0 0 0 3px rgba(52, 125, 183, 0.09);
+}
+
+.search-box {
+    flex: 1;
+    min-width: 180px;
+}
+
+.search-box > span {
+    font-size: 23px;
+    line-height: 1;
+}
+
+.search-box input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--ink);
+    font-size: 13px;
+}
+
+.search-box input::placeholder {
+    color: #9aa9b7;
+}
+
+.search-submit {
+    display: grid;
+    place-items: center;
+    padding: 3px;
+    border: 0;
+    background: transparent;
+    color: var(--navy);
+    font-size: 21px;
+    line-height: 1;
+}
+
+.search-submit:hover {
+    color: var(--blue);
+}
+
+.filter-box {
+    width: 225px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.filter-box select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #45596d;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.filter-box > span:last-child {
+    pointer-events: none;
+    font-size: 17px;
+    color: #526b82;
+}
+
+.filter-reset {
+    height: 50px;
+    padding: 0 17px;
+}
+
+/* 9. GRID KARTU ALAT */
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.equipment-card {
+    background: #ffffff;
+    border: 1px solid #e5ecf2;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 5px 16px rgba(23, 53, 80, 0.055);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.equipment-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+/* AREA FOTO ALAT */
+.equipment-image {
+    height: 190px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #fbfdff, #edf3f8);
+}
+
+.equipment-image img {
+    width: 100%;
+    height: 100%;
+    padding: 14px;
+    object-fit: contain;
+}
+
+/* PLACEHOLDER KETIKA FOTO BELUM ADA */
+.equipment-image-placeholder {
+    flex-direction: column;
+    gap: 9px;
+    padding: 15px;
+    text-align: center;
+    color: #8195a8;
+    background: linear-gradient(145deg, #f5f8fb, #eaf0f5);
+    transition: background 0.2s ease;
+}
+
+.equipment-image-placeholder:hover {
+    background: linear-gradient(145deg, #edf4fa, #e1edf6);
+}
+
+.equipment-image-placeholder svg {
+    width: 48px;
+    height: 48px;
+    fill: none;
+    stroke: #7894ad;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.placeholder-code {
+    font: 700 9px/1.2 ui-monospace, Consolas, monospace;
+    letter-spacing: 1.4px;
+    color: #91a4b5;
+}
+
+.placeholder-caption {
+    font-size: 11px;
+    color: #8498aa;
+}
+
+/* INFORMASI KARTU */
+.equipment-card-body {
+    padding: 15px;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #71869a;
+    font-size: 12px;
+}
+
+.category-dot {
+    width: 8px;
+    height: 8px;
+    background: #4b8fbe;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.equipment-card h3 {
+    font: 700 17px 'Manrope', sans-serif;
+    color: #1a2c40;
+    margin: 8px 0 5px;
+    line-height: 1.35;
+}
+
+.equipment-card h3 a:hover {
+    color: #3479b6;
+}
+
+.equipment-location {
+    font-size: 12px;
+    color: #8191a0;
+    margin: 0 0 13px;
+}
+
+.card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-top: 1px solid #edf1f5;
+    padding-top: 11px;
+}
+
+.detail-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 11px;
+    border-radius: 30px;
+    color: #2e6ea5;
+    background: #eef5fb;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.detail-link:hover {
+    background: #dcecf9;
+    color: #174b77;
+}
+
+.detail-link span {
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* 10. KATALOG KOSONG */
+.empty-state {
+    text-align: center;
+    border: 1px dashed #d6e1ea;
+    border-radius: 16px;
+    padding: 50px 20px;
+    background: #fbfdff;
+}
+
+.empty-state[hidden] {
+    display: none !important;
+}
+
+.empty-icon {
+    font-size: 38px;
+    color: #8aa5ba;
+    margin-bottom: 8px;
+}
+
+.empty-state h3 {
+    font: 700 20px 'Manrope', sans-serif;
+    margin: 8px 0;
+    color: var(--ink);
+}
+
+.empty-state p {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 18px;
+}
+
+.catalog-footnote {
+    font-size: 12px;
+    color: #8796a3;
+    margin: 18px 0 0;
+}
+
+/* 11. TENTANG LABCAT */
+.about-band {
+    background: #f3f7fa;
+    border-top: 1px solid #e9eff4;
+    padding: 48px 0;
+}
+
+.about-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    max-width: 950px;
+}
+
+.about-symbol {
+    width: 85px;
+    height: 85px;
+    border-radius: 20px;
+    background: #e0edf7;
+    color: #1e5a88;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.about-symbol svg {
+    width: 38px;
+    height: 38px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.about-inner h2 {
+    font: 800 27px 'Manrope', sans-serif;
+    margin: 7px 0;
+    color: var(--ink);
+}
+
+.about-inner p {
+    margin: 0;
+    color: #66798b;
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 750px;
+}
+
+/* 12. FOOTER */
+.site-footer {
+    background: #102b47;
+    color: #d5e1eb;
+    padding: 30px 0;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.brand-footer {
+    color: #ffffff;
+}
+
+.brand-footer .brand-icon {
+    width: 43px;
+    height: 43px;
+}
+
+.brand-footer .brand-copy small {
+    color: #a8c0d2;
+}
+
+.site-footer p {
+    max-width: 600px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #a9bdcd;
+    margin: 10px 0 0;
+}
+
+.footer-note {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    gap: 5px;
+    font-size: 11px;
+    color: #9fb4c5;
+}
+
+/* 13. HALAMAN DETAIL ALAT */
+.detail-page {
+    padding-top: 25px;
+    padding-bottom: 70px;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    font-size: 13px;
+    color: #8393a2;
+    margin-bottom: 20px;
+}
+
+.breadcrumb a:hover {
+    color: #2b70aa;
+}
+
+.breadcrumb strong {
+    color: #344b61;
+}
+
+.back-link {
+    display: inline-block;
+    color: #3a6f9d;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.back-link:hover {
+    color: #123a61;
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.92fr) minmax(0, 1.08fr);
+    gap: 34px;
+    align-items: start;
+}
+
+.detail-visual {
+    min-width: 0;
+    position: sticky;
+    top: 100px;
+}
+
+/* FOTO UTAMA DETAIL */
+.detail-image {
+    width: 100%;
+    height: 420px;
+    border-radius: 16px;
+    border: 1px solid #e7edf2;
+    background: linear-gradient(145deg, #fbfdff, #eef3f7);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.detail-image img {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* PLACEHOLDER FOTO DETAIL */
+.detail-image-placeholder {
+    background: linear-gradient(145deg, #f5f8fb, #eaf0f5);
+}
+
+.photo-empty-state {
+    max-width: 280px;
+    padding: 24px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    color: #7b90a3;
+}
+
+.photo-empty-state svg {
+    width: 66px;
+    height: 66px;
+    fill: none;
+    stroke: #7894ad;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.photo-empty-state strong {
+    font-size: 17px;
+    color: #38536b;
+}
+
+.photo-empty-state span {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* 14. GALERI FOTO */
+.detail-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 90px);
+    gap: 12px;
+    margin-top: 13px;
+}
+
+.detail-gallery-thumb {
+    width: 90px;
+    height: 82px;
+    padding: 5px;
+    border: 1px solid #e2eaf1;
+    border-radius: 12px;
+    background: #f6f9fc;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.detail-gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.detail-gallery-thumb:hover,
+.detail-gallery-thumb.active {
+    border-color: #2e7fc4;
+    background: #ffffff;
+    box-shadow: 0 0 0 2px rgba(46, 127, 196, 0.12);
+}
+
+.detail-gallery-thumb.active {
+    outline: 1px solid #2e7fc4;
+}
+
+.image-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 4px;
+    color: #8797a6;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+}
+
+.image-caption strong {
+    color: #46637e;
+}
+
+/* 15. INFORMASI DETAIL */
+.detail-content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detail-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 4px 0 8px;
+}
+
+.detail-title-row h1 {
+    font: 800 38px 'Manrope', sans-serif;
+    margin: 5px 0 0;
+    letter-spacing: -0.7px;
+    color: var(--ink);
+}
+
+.info-panel {
+    background: #f7f9fb;
+    border: 1px solid #edf1f5;
+    border-radius: 14px;
+    padding: 20px 22px;
+}
+
+.info-panel h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 700 17px 'Manrope', sans-serif;
+    margin: 0 0 13px;
+    color: #233c55;
+}
+
+.info-list {
+    margin: 0;
+}
+
+.info-list div {
+    display: grid;
+    grid-template-columns: 155px 1fr;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid #e9eef2;
+    font-size: 13px;
+}
+
+.info-list div:last-child {
+    border-bottom: 0;
+}
+
+.info-list dt {
+    color: #718294;
+}
+
+.info-list dd {
+    margin: 0;
+    color: #253c52;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.heading-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 23px;
+    height: 23px;
+    border: 1.5px solid currentColor;
+    border-radius: 6px;
+    font: 700 11px ui-monospace, monospace;
+    color: #3978aa;
+    flex-shrink: 0;
+}
+
+.detail-paragraph {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #52677a;
+    margin: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.detail-disclaimer {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #81909d;
+    margin: 0;
+}
+
+.datasheet-panel {
+    background: #f5f8fb;
+}
+
+/* 16. RESPONSIVE TABLET */
+@media (max-width: 1050px) {
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .equipment-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .detail-layout {
+        gap: 22px;
+    }
+
+    .detail-image {
+        height: 360px;
+    }
+}
+
+/* 17. RESPONSIVE MOBILE */
+@media (max-width: 760px) {
+    .container {
+        width: min(100% - 30px, 640px);
+    }
+
+    .site-header {
+        height: 70px;
+    }
+
+    .brand-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .brand-copy strong {
+        font-size: 21px;
+    }
+
+    .brand-copy small {
+        font-size: 8px;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .main-nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        height: auto;
+        padding: 15px 20px 20px;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 10px 20px rgba(20, 50, 75, 0.08);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .main-nav.is-open {
+        display: flex;
+    }
+
+    .main-nav > a:not(.btn) {
+        height: auto;
+        padding: 13px 4px;
+        color: var(--navy);
+        font-size: 15px;
+    }
+
+    .main-nav > a.active::after {
+        display: none;
+    }
+
+    .main-nav .btn-login {
+        margin-top: 10px;
+        justify-content: center;
+    }
+
+    .hero-inner {
+        min-height: 300px;
+    }
+
+    .hero-copy {
+        width: 100%;
+        padding: 38px 0;
+    }
+
+    .hero h1 {
+        font-size: 37px;
+    }
+
+    .hero-copy p {
+        font-size: 14px;
+        max-width: 500px;
+    }
+
+    .hero::before {
+        right: -240px;
+    }
+
+    .catalog-section {
+        padding-top: 30px;
+        padding-bottom: 45px;
+    }
+
+    .section-heading h2 {
+        font-size: 22px;
+    }
+
+    .catalog-toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box,
+    .filter-box {
+        width: 100%;
+        flex: none;
+        height: 48px;
+    }
+
+    .filter-reset {
+        width: 100%;
+        height: 45px;
+    }
+
+    .equipment-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 13px;
+    }
+
+    .equipment-image {
+        height: 150px;
+    }
+
+    .equipment-card-body {
+        padding: 12px;
+    }
+
+    .equipment-card h3 {
+        font-size: 15px;
+    }
+
+    .equipment-location {
+        font-size: 11px;
+    }
+
+    .card-bottom {
+        padding-top: 9px;
+    }
+
+    .detail-link {
+        font-size: 11px;
+        padding: 6px 9px;
+    }
+
+    .about-band {
+        padding: 35px 0;
+    }
+
+    .about-inner {
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    .about-symbol {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+    }
+
+    .about-symbol svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .about-inner h2 {
+        font-size: 21px;
+    }
+
+    .about-inner p {
+        font-size: 12px;
+    }
+
+    .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-note {
+        text-align: left;
+    }
+
+    /* DETAIL MOBILE */
+    .detail-page {
+        padding-top: 18px;
+        padding-bottom: 45px;
+    }
+
+    .detail-layout {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .detail-visual {
+        position: static;
+    }
+
+    .detail-image {
+        height: 320px;
+    }
+
+    .detail-title-row h1 {
+        font-size: 28px;
+    }
+
+    .info-panel {
+        padding: 16px;
+    }
+
+    .info-list div {
+        grid-template-columns: 125px 1fr;
+        font-size: 12px;
+    }
+}
+
+/* 18. RESPONSIVE MOBILE KECIL */
+@media (max-width: 460px) {
+    .container {
+        width: calc(100% - 26px);
+    }
+
+    .brand-copy strong {
+        font-size: 19px;
+    }
+
+    .brand-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .hero-inner {
+        min-height: 275px;
+    }
+
+    .hero h1 {
+        font-size: 31px;
+    }
+
+    .hero-copy p {
+        font-size: 13px;
+    }
+
+    .equipment-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .equipment-image {
+        height: 125px;
+    }
+
+    .equipment-card-body {
+        padding: 10px;
+    }
+
+    .equipment-card h3 {
+        font-size: 13px;
+    }
+
+    .card-meta {
+        font-size: 10px;
+    }
+
+    .equipment-location {
+        font-size: 10px;
+    }
+
+    .detail-link {
+        font-size: 10px;
+    }
+
+    .about-inner {
+        gap: 12px;
+    }
+
+    .about-symbol {
+        width: 48px;
+        height: 48px;
+    }
+
+    .about-inner h2 {
+        font-size: 18px;
+    }
+
+    .detail-image {
+        height: 270px;
+    }
+
+    .detail-title-row h1 {
+        font-size: 25px;
+    }
+
+    .info-list div {
+        grid-template-columns: 1fr;
+        gap: 3px;
+    }
+
+    .detail-gallery {
+        grid-template-columns: repeat(auto-fill, 72px);
+        gap: 8px;
+    }
+
+    .detail-gallery-thumb {
+        width: 72px;
+        height: 68px;
+    }
+
+    .image-caption {
+        font-size: 8px;
+    }
+}
