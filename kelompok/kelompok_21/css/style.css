@@ -900,3 +900,273 @@ footer span {
         padding: 18px;
     }
 }
+
+
+
+
+
+
+/* ========================================================
+   MODUL KLASIFIKASI BELAJAR SISWA (NATASYA ARDIANA)
+======================================================== */
+.arunika-wrapper {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.06);
+    border: 1px solid #e8f5e9;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e8f5e9;
+    padding-bottom: 16px;
+}
+
+.page-header h2 {
+    margin: 0 0 6px 0;
+    font-size: 1.4rem;
+    color: #1b5e20;
+}
+
+.page-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.92rem;
+}
+
+.total-badge {
+    background-color: #1b5e20;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.filter-box {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    background: #f1f8f5;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #c8e6c9;
+    margin-bottom: 28px;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-item label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #388e3c;
+}
+
+.filter-item select, 
+.filter-item input {
+    padding: 8px 12px;
+    border: 1px solid #a5d6a7;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: #ffffff;
+    color: #2c3e50;
+}
+
+.btn-green {
+    background-color: #1b5e20;
+    color: #ffffff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn-green:hover {
+    background-color: #2e7d32;
+}
+
+.quadrant-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.quadrant-card {
+    border-radius: 10px;
+    padding: 18px;
+    min-height: 240px;
+    border: 1.5px dashed;
+    display: flex;
+    flex-direction: column;
+}
+
+.q-bakat { 
+    background-color: #f1f8ff; 
+    border-color: #90caf9; 
+}
+
+.q-bintang { 
+    background-color: #e8f5e9; 
+    border-color: #81c784; 
+}
+
+.q-bahaya { 
+    background-color: #ffebee; 
+    border-color: #ef9a9a; 
+}
+
+.q-butuh { 
+    background-color: #fffde7; 
+    border-color: #fff59d; 
+}
+
+.q-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.q-card-header h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #263238;
+}
+
+.q-badge {
+    background: rgba(0, 0, 0, 0.06);
+    padding: 2px 9px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.q-note {
+    font-size: 0.78rem;
+    color: #6c757d;
+    margin: 0 0 14px 0;
+}
+
+.student-container {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    overflow-y: auto;
+    max-height: 170px;
+}
+
+.student-pill {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 7px 12px;
+    border-radius: 18px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.15s ease;
+}
+
+.student-pill:hover {
+    background: #f9fbf9;
+    border-color: #1b5e20;
+    transform: translateX(2px);
+}
+
+/* Modal Dialog Native */
+.clean-modal {
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+    width: 380px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.clean-modal::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-inner {
+    padding: 22px;
+}
+
+.modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.modal-top h3 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #1b5e20;
+    margin-bottom: 14px;
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    background: #f8f9fa;
+    padding: 9px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.modal-bottom {
+    margin-top: 20px;
+    text-align: right;
+    border-top: 1px solid #eeeeee;
+    padding-top: 12px;
+}
+
+.btn-secondary-native {
+    background: #e0e0e0;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333333;
+}
+
+.btn-secondary-native:hover {
+    background: #d0d0d0;
+}

@@ -21,9 +21,6 @@ $pesan_sukses = $_SESSION['flash_success'] ?? '';
 $pesan_error = $_SESSION['flash_error'] ?? '';
 unset($_SESSION['flash_success'], $_SESSION['flash_error']);
 
-
-
-
 if (!empty($_SESSION['cart'])) {
     $stmt_refresh = $conn->prepare(
         "SELECT id, sku, name, price, stock FROM products WHERE id = ?"
@@ -57,7 +54,6 @@ if (!empty($_SESSION['cart'])) {
     $stmt_refresh->close();
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $submitted_token = $_POST['csrf_token'] ?? '';
 
@@ -67,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'tambah') {
     $product_id = (int)($_POST['product_id'] ?? 0);
@@ -109,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'tamba
     exit;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'update') {
     $product_id = (int)($_POST['product_id'] ?? 0);
     $qty = (int)($_POST['qty'] ?? 1);
@@ -135,7 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'updat
     exit;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'hapus') {
     $product_id = (int)($_POST['product_id'] ?? 0);
 
@@ -148,14 +141,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'hapus
     exit;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'kosongkan') {
     $_SESSION['cart'] = [];
     $_SESSION['flash_success'] = 'Keranjang berhasil dikosongkan.';
     header("Location: index.php");
     exit;
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'checkout') {
     if (empty($_SESSION['cart'])) {
@@ -164,7 +155,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'check
         exit;
     }
 
-
     $user_id = (int)$_SESSION['user_id'];
 
     if ($user_id <= 0) {
@@ -172,7 +162,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'check
         header("Location: ../auth/login.php");
         exit;
     }
-
 
     $stmt_user = $conn->prepare("SELECT id FROM users WHERE id = ? AND is_active = 1");
     $stmt_user->bind_param("i", $user_id);
@@ -216,7 +205,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'check
     $conn->begin_transaction();
 
     try {
-
         $stmt_check_stock = $conn->prepare(
             "SELECT id, name, stock FROM products WHERE id = ? FOR UPDATE"
         );
@@ -248,11 +236,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'check
             }
         }
 
-
-
-
-
-
         $stmt_trans = $conn->prepare("
             INSERT INTO transactions
             (invoice_number, user_id, transaction_date, subtotal, total,
@@ -276,11 +259,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'check
         }
 
         $transaction_id = $conn->insert_id;
-
-
-
-
-
 
         $stmt_detail = $conn->prepare("
             INSERT INTO transaction_details
@@ -324,7 +302,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'check
     header("Location: index.php");
     exit;
 }
-
 
 $search = trim($_GET['cari'] ?? '');
 
@@ -375,7 +352,7 @@ require_once __DIR__ . '/../includes/header.php';
 
         <div class="mb-4">
             <h3 class="fw-bold">
-                <i class="bi bi-cash-register me-2"></i>Transaksi Kasir
+                <i class="bi bi-cash-coin me-2"></i>Transaksi Kasir
             </h3>
             <p class="text-muted">
                 Kelola transaksi penjualan FEBMart.

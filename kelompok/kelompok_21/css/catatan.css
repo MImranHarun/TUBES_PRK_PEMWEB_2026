@@ -1,0 +1,83 @@
+
+textarea {
+    display: block;
+    width: 100%;
+    min-height: 84px;
+    padding: 11px 12px;
+    border: 1px solid #d9e1d6;
+    border-radius: 7px;
+    background: white;
+    color: var(--text);
+    margin-top: 7px;
+    resize: vertical;
+}
+textarea:focus {
+    outline: 2px solid #90b6a0;
+    border-color: var(--green);
+}
+#catatan-dialog {
+    width: min(560px, calc(100% - 30px));
+}
+.catatan-filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+.catatan-filter label {
+    flex: 1;
+    max-width: 320px;
+    margin: 0;
+}
+.catatan-detail {
+    margin-top: 22px;
+}
+.catatan-rekomendasi {
+    background: var(--mint);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+}
+.catatan-rekomendasi p {
+    display: block;
+    margin: 6px 0 0;
+}
+.catatan-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+}
+.catatan-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.catatan-card-head small {
+    display: block;
+    color: var(--muted);
+    margin-top: 3px;
+}
+.catatan-field {
+    margin-bottom: 10px;
+}
+.catatan-field small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+.catatan-field p {
+    display: block;
+    margin: 3px 0 0;
+    white-space: pre-line;
+    font-size: 13px;
+}
+.status-direncanakan { background: #fdf3d9; color: #8a6a1c; }
+.status-berjalan { background: #e3edf8; color: #35628f; }
+.status-selesai { background: #e1f0e5; color: #215c38; }

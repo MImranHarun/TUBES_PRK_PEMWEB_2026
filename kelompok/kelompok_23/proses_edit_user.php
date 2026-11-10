@@ -66,25 +66,81 @@ if ($email !== '') {
     $check->close();
 }
 
+// Ambil foto lama
+$currentPhoto = null;
+$getPhoto = $conn->prepare("SELECT photo FROM users WHERE id = ?");
+$getPhoto->bind_param("i", $id);
+$getPhoto->execute();
+$photoRow = $getPhoto->get_result()->fetch_assoc();
+$currentPhoto = $photoRow['photo'] ?? null;
+$getPhoto->close();
+
+// Proses upload foto jika ada
+$newPhoto = $currentPhoto;
+if (isset($_FILES['photo']) && $_FILES['photo']['error'] !== UPLOAD_ERR_NO_FILE) {
+    if ($_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
+        die("Upload foto gagal. Silakan coba lagi.");
+    }
+
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $finfo->file($_FILES['photo']['tmp_name']);
+    $allowedTypes = [
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+        'image/webp' => 'webp'
+    ];
+
+    if (!isset($allowedTypes[$mime])) {
+        die("Format foto harus JPG, PNG, atau WebP!");
+    }
+
+    if ($_FILES['photo']['size'] > 2 * 1024 * 1024) {
+        die("Ukuran foto maksimal 2 MB!");
+    }
+
+    $uploadedPhoto = bin2hex(random_bytes(16)) . '.' . $allowedTypes[$mime];
+    $uploadPath = __DIR__ . '/assets/img/' . $uploadedPhoto;
+
+    if (!move_uploaded_file($_FILES['photo']['tmp_name'], $uploadPath)) {
+        die("Gagal menyimpan foto profil.");
+    }
+
+    $newPhoto = $uploadedPhoto;
+}
+
 // Memperbarui data pengguna
 $query = "UPDATE users
-          SET name = ?, username = ?, email = ?, role = ?
+          SET name = ?, username = ?, email = ?, role = ?, photo = ?
           WHERE id = ?";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param(
-    "ssssi",
+    "sssssi",
     $name,
     $username,
     $email,
     $role,
+    $newPhoto,
     $id
 );
 
 if ($stmt->execute()) {
+    // Hapus foto lama jika diganti (kecuali aset default)
+    if ($newPhoto !== $currentPhoto && !empty($currentPhoto) && !in_array($currentPhoto, ['admin-avatar.svg', 'avatar-default.svg', 'logo.svg'], true)) {
+        $oldPath = __DIR__ . '/assets/img/' . basename($currentPhoto);
+        if (is_file($oldPath)) {
+            unlink($oldPath);
+        }
+    }
     header("Location: users.php?status=edit_berhasil");
     exit;
 } else {
+    if ($newPhoto !== $currentPhoto && !empty($newPhoto)) {
+        $uploadedPath = __DIR__ . '/assets/img/' . basename($newPhoto);
+        if (is_file($uploadedPath)) {
+            unlink($uploadedPath);
+        }
+    }
     die("Gagal memperbarui pengguna: " . $stmt->error);
 }
 

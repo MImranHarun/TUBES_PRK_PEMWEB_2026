@@ -1,0 +1,46 @@
+
+
+/* 1. Tema Default: Sky Bubblegum */
+:root,
+[data-tema="sky-bubblegum"] {
+  --latar: #E4F1FF;
+  --kartu: #F7FBFF;
+  --primary: #7CB9FF;
+  --secondary: #F9A8D4;
+  --accent: #FCD34D;
+  --teks: #0B1F4D;
+  --teks-2: #3A5287;
+}
+
+/* 2. Tema: Lavender Dream */
+[data-tema="lavender-dream"] {
+  --latar: #EFEAFF;
+  --kartu: #FAF8FF;
+  --primary: #A78BFA;
+  --secondary: #F9A8D4;
+  --accent: #FDE68A;
+  --teks: #2E1065;
+  --teks-2: #5B4B8A;
+}
+
+/* 3. Tema: Mint Cloud */
+[data-tema="mint-cloud"] {
+  --latar: #E3F6EE;
+  --kartu: #F6FFFB;
+  --primary: #6EE7B7;
+  --secondary: #7DD3FC;
+  --accent: #FDE68A;
+  --teks: #064E3B;
+  --teks-2: #2F6B57;
+}
+
+/* 4. Tema: Peach Pop */
+[data-tema="peach-pop"] {
+  --latar: #FFEDE0;
+  --kartu: #FFF9F5;
+  --primary: #FF9F7A;
+  --secondary: #FDE68A;
+  --accent: #C4B5FD;
+  --teks: #431407;
+  --teks-2: #8A4A2D;
+}

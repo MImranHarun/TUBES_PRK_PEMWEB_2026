@@ -21,7 +21,7 @@ if ($username === '' || $password === '') {
     exit;
 }
 
-$query = "SELECT id, name, username, password, role, is_active
+$query = "SELECT id, name, username, password, role, is_active, photo
           FROM users
           WHERE username = ?
           LIMIT 1";
@@ -52,6 +52,7 @@ if ($user && password_verify($password, $user['password'])) {
     $_SESSION['name'] = $user['name'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['role'] = $user['role'];
+    $_SESSION['photo'] = $user['photo'] ?? null;
 
     header("Location: ../dashboard.php");
     exit;

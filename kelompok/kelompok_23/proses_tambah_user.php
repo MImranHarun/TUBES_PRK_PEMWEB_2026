@@ -55,23 +55,61 @@ if ($email !== '') {
 
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-$query = "INSERT INTO users (name, username, email, password, role)
-          VALUES (?, ?, ?, ?, ?)";
+// Proses upload foto jika ada
+$photoName = null;
+if (isset($_FILES['photo']) && $_FILES['photo']['error'] !== UPLOAD_ERR_NO_FILE) {
+    if ($_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
+        die("Upload foto gagal. Silakan coba lagi.");
+    }
+
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $finfo->file($_FILES['photo']['tmp_name']);
+    $allowedTypes = [
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+        'image/webp' => 'webp'
+    ];
+
+    if (!isset($allowedTypes[$mime])) {
+        die("Format foto harus JPG, PNG, atau WebP!");
+    }
+
+    if ($_FILES['photo']['size'] > 2 * 1024 * 1024) {
+        die("Ukuran foto maksimal 2 MB!");
+    }
+
+    $photoName = bin2hex(random_bytes(16)) . '.' . $allowedTypes[$mime];
+    $uploadPath = __DIR__ . '/assets/img/' . $photoName;
+
+    if (!move_uploaded_file($_FILES['photo']['tmp_name'], $uploadPath)) {
+        die("Gagal menyimpan foto profil.");
+    }
+}
+
+$query = "INSERT INTO users (name, username, email, password, role, photo)
+          VALUES (?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param(
-    "sssss",
+    "ssssss",
     $name,
     $username,
     $email,
     $hashed_password,
-    $role
+    $role,
+    $photoName
 );
 
 if ($stmt->execute()) {
     header("Location: users.php?status=berhasil");
     exit;
 } else {
+    if (!empty($photoName)) {
+        $failedPath = __DIR__ . '/assets/img/' . basename($photoName);
+        if (is_file($failedPath)) {
+            unlink($failedPath);
+        }
+    }
     die("Gagal menambahkan pengguna: " . $stmt->error);
 }
 

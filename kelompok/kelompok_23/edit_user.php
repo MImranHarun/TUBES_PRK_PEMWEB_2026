@@ -20,7 +20,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $id = (int) $_GET['id'];
 
-$query = "SELECT id, name, username, email, role
+$query = "SELECT id, name, username, email, role, photo
           FROM users
           WHERE id = ?";
 
@@ -138,7 +138,7 @@ if (!$user) {
 
     <div class="form-content">
 
-        <form action="proses_edit_user.php" method="POST">
+        <form action="proses_edit_user.php" method="POST" enctype="multipart/form-data">
 
             <input type="hidden" name="id"
                    value="<?= htmlspecialchars((string) $user['id']); ?>">
@@ -188,6 +188,27 @@ if (!$user) {
                     </option>
 
                 </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Foto Profil</label>
+
+                <input type="file" name="photo" class="form-control"
+                       accept="image/jpeg,image/png,image/webp">
+
+                <small class="text-muted">
+                    Format JPG/PNG/WebP, maks 2 MB. Kosongkan jika tidak ingin mengganti foto.
+                </small>
+
+                <?php if (!empty($user['photo'])): ?>
+                    <div class="mt-2 d-flex align-items-center gap-2">
+                        <img src="assets/img/<?= htmlspecialchars($user['photo']); ?>"
+                             width="56" height="56"
+                             alt="Foto saat ini"
+                             style="border-radius:50%;object-fit:cover;">
+                        <small class="text-muted">Foto saat ini</small>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div class="d-flex justify-content-between flex-wrap gap-2">

@@ -2,9 +2,35 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
 $currentPath = str_replace('\\', '/', $_SERVER['PHP_SELF']);
+$sidebarUserName = trim((string)($_SESSION['name'] ?? ''));
+$sidebarUserRole = trim((string)($_SESSION['role'] ?? ''));
+$sidebarPhoto = trim((string)($_SESSION['photo'] ?? ''));
+if ($sidebarPhoto === 'avatar-avatar.svg') {
+    $sidebarPhoto = '';
+    $_SESSION['photo'] = null;
+}
+$sidebarAvatarSrc = ($sidebarPhoto !== '' && is_file(__DIR__ . '/../assets/img/' . $sidebarPhoto))
+    ? $baseUrl . '/assets/img/' . rawurlencode($sidebarPhoto)
+    : $baseUrl . '/assets/img/avatar-default.svg';
 ?>
 
 <aside class="sidebar p-3">
+
+    <div class="sidebar-brand">
+        <img src="<?= $baseUrl ?>/assets/img/logo.svg"
+             alt="FEBMart" loading="lazy">
+    </div>
+
+    <div class="sidebar-profile">
+        <div class="sidebar-avatar">
+            <img src="<?= htmlspecialchars($sidebarAvatarSrc); ?>"
+                 alt="Foto profil" loading="lazy">
+        </div>
+        <div class="sidebar-userinfo">
+            <strong class="text-truncate"><?= htmlspecialchars($sidebarUserName ?: 'Pengguna'); ?></strong>
+            <small class="text-muted text-truncate"><?= htmlspecialchars(ucfirst($sidebarUserRole ?: 'user')); ?></small>
+        </div>
+    </div>
 
     <h6 class="sidebar-heading">MENU UTAMA</h6>
 
@@ -28,8 +54,8 @@ $currentPath = str_replace('\\', '/', $_SERVER['PHP_SELF']);
 
     <a href="<?= $baseUrl ?>/transaksi/index.php"
        class="sidebar-link <?= str_contains($currentPath, '/transaksi/') ? 'active' : '' ?>">
-        <i class="bi bi-cart"></i>
-        Transaksi
+        <i class="bi bi-cash-coin"></i>
+        Kasir
     </a>
 
     <a href="<?= $baseUrl ?>/riwayat/index.php"
@@ -41,7 +67,7 @@ $currentPath = str_replace('\\', '/', $_SERVER['PHP_SELF']);
     <a href="<?= $baseUrl ?>/laporan/index.php"
        class="sidebar-link <?= str_contains($currentPath, '/laporan/') ? 'active' : '' ?>">
         <i class="bi bi-file-earmark-bar-graph"></i>
-        Laporan
+        Laporan Penjualan
     </a>
 
     <hr class="sidebar-divider">

@@ -1,0 +1,608 @@
+/* assets/css/komponen.css */
+/* Komponen Claymorphism dan Tata Letak Dasar DynaQuiz */
+
+/* --- 1. Kontainer & Tata Letak Sederhana --- */
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+}
+
+.container-sm {
+  width: 100%;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.layout-publik {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-publik main {
+  flex: 1;
+  padding: 32px 0 48px;
+}
+
+/* Layout Panel (Sidebar di desktop, tumpuk di layar kecil) */
+.layout-panel {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+@media (min-width: 900px) {
+  .layout-panel {
+    flex-direction: row;
+  }
+}
+
+.panel-content {
+  flex: 1;
+  padding: 24px 20px;
+  overflow-y: auto;
+}
+
+@media (min-width: 900px) {
+  .panel-content {
+    padding: 36px 40px;
+  }
+}
+
+/* Bento Grid untuk Dashboard */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --- 2. Kartu Claymorphism (.card) --- */
+.card {
+  background-color: var(--kartu);
+  border-radius: var(--radius-l);
+  box-shadow: var(--clay-timbul);
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-sm {
+  padding: 16px 20px;
+  border-radius: var(--radius-m);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+/* --- 3. Tombol Claymorphism (.btn) --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 10px 22px;
+  border-radius: var(--radius-m);
+  font-family: var(--font-isi);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--teks);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--clay-timbul);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  user-select: none;
+}
+
+.btn:active {
+  box-shadow: var(--clay-tekan);
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+}
+
+.btn-accent {
+  background-color: var(--accent);
+}
+
+.btn-danger {
+  background-color: var(--galat-bg);
+  color: var(--galat-teks);
+}
+
+.btn-batal {
+  background-color: var(--netral-bg);
+  color: var(--netral-teks);
+}
+
+.btn-outline {
+  background-color: var(--kartu);
+  border: 2px solid var(--teks);
+  box-shadow: none;
+}
+
+.btn-sm {
+  min-height: 38px;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  border-radius: var(--radius-s);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* --- 4. Form & Input (.form-control) --- */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: var(--teks);
+}
+
+.form-control,
+.form-select,
+.form-input,
+.form-textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 18px;
+  font-family: var(--font-isi);
+  font-size: 1rem;
+  color: var(--teks);
+  background-color: var(--kartu);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-s);
+  box-shadow: var(--clay-tekan);
+  outline: none;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--teks);
+  box-shadow: var(--clay-tekan), 0 0 0 2px var(--primary);
+}
+
+.form-error {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--galat-teks);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.form-helper {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--teks-2);
+}
+
+/* --- 5. Pesan Flash Notifikasi (.alert) --- */
+.alert {
+  padding: 16px 20px;
+  border-radius: var(--radius-m);
+  margin-bottom: 24px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--clay-timbul);
+}
+
+.alert-sukses {
+  background-color: var(--sukses-bg);
+  color: var(--sukses-teks);
+}
+
+.alert-galat {
+  background-color: var(--galat-bg);
+  color: var(--galat-teks);
+}
+
+.alert-info {
+  background-color: var(--latar);
+  color: var(--teks);
+  border: 1px solid var(--primary);
+}
+
+/* --- 6. Status Badge (.badge) --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.825rem;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.badge-mudah {
+  background-color: var(--sukses-bg);
+  color: var(--sukses-teks);
+}
+
+.badge-sedang {
+  background-color: var(--accent);
+  color: var(--teks);
+}
+
+.badge-sulit {
+  background-color: var(--galat-bg);
+  color: var(--galat-teks);
+}
+
+.badge-draft {
+  background-color: var(--netral-bg);
+  color: var(--netral-teks);
+}
+
+.badge-menunggu {
+  background-color: var(--accent);
+  color: var(--teks);
+}
+
+.badge-terbit,
+.badge-publish {
+  background-color: var(--sukses-bg);
+  color: var(--sukses-teks);
+}
+
+.badge-ditolak {
+  background-color: var(--galat-bg);
+  color: var(--galat-teks);
+}
+
+.badge-ditarik {
+  background-color: var(--netral-bg);
+  color: var(--netral-teks);
+}
+
+/* --- 7. Pemilih Tema (.pemilih-tema & .theme-switcher) --- */
+.pemilih-tema,
+.theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--kartu);
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: var(--clay-tekan);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.pemilih-tema-ikon {
+  font-size: 1.2rem;
+  line-height: 1;
+  display: inline-block;
+  user-select: none;
+}
+
+.swatch-tema,
+.theme-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 2px;
+  background: transparent;
+  outline: none;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.swatch-tema:hover,
+.theme-btn:hover {
+  transform: translateY(-3px) scale(1.15);
+}
+
+.swatch-warna {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), inset -1px -1px 3px rgba(0, 0, 0, 0.2), inset 1px 1px 3px rgba(255, 255, 255, 0.7);
+  transition: box-shadow 0.2s ease;
+}
+
+.swatch-tema[aria-pressed="true"],
+.theme-btn[aria-pressed="true"] {
+  border-color: var(--teks);
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--kartu), 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.swatch-tema[aria-pressed="true"] .swatch-warna,
+.theme-btn[aria-pressed="true"] .swatch-warna {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), inset -1px -1px 2px rgba(0, 0, 0, 0.3), inset 1px 1px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Swatch gradient split warna tema (Primary & Secondary) */
+.swatch-sky,
+.swatch-sky .swatch-warna {
+  background: linear-gradient(135deg, #7CB9FF 50%, #F9A8D4 50%);
+}
+
+.swatch-lavender,
+.swatch-lavender .swatch-warna {
+  background: linear-gradient(135deg, #A78BFA 50%, #F9A8D4 50%);
+}
+
+.swatch-mint,
+.swatch-mint .swatch-warna {
+  background: linear-gradient(135deg, #6EE7B7 50%, #7DD3FC 50%);
+}
+
+.swatch-peach,
+.swatch-peach .swatch-warna {
+  background: linear-gradient(135deg, #FF9F7A 50%, #FDE68A 50%);
+}
+
+/* --- 8. Navigasi Bar (.navbar) --- */
+.navbar-top {
+  background-color: var(--kartu);
+  box-shadow: var(--clay-timbul);
+  padding: 14px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.navbar-container {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .navbar-container {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+}
+
+.navbar-brand {
+  font-family: var(--font-judul);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--teks);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-brand span {
+  color: var(--teks-2);
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+}
+
+.navbar-link {
+  font-weight: 600;
+  color: var(--teks);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-s);
+  transition: background-color 0.2s ease;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+  background-color: var(--latar);
+}
+
+/* Mobile responsive menu */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--teks);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--kartu);
+    padding: 20px 24px;
+    box-shadow: var(--clay-timbul);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .navbar-menu.buka {
+    display: flex;
+  }
+}
+
+/* --- 9. Sidebar Panel (.sidebar-panel) --- */
+.sidebar-panel {
+  width: 100%;
+  background-color: var(--kartu);
+  box-shadow: var(--clay-timbul);
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+@media (min-width: 900px) {
+  .sidebar-panel {
+    width: 280px;
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+  }
+}
+
+.sidebar-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  font-weight: 600;
+  color: var(--teks);
+  text-decoration: none;
+  border-radius: var(--radius-m);
+  transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background-color: var(--latar);
+}
+
+.sidebar-link.active {
+  background-color: var(--primary);
+  box-shadow: var(--clay-tekan);
+}
+
+.sidebar-badge {
+  margin-left: auto;
+  background-color: var(--accent);
+  color: var(--teks);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* --- 10. Header Mode Fokus (.focus-bar) --- */
+.focus-bar {
+  background-color: var(--kartu);
+  box-shadow: var(--clay-timbul);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.timer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--kartu);
+  box-shadow: var(--clay-tekan);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.timer-peringatan {
+  background-color: var(--accent);
+  color: var(--teks);
+}
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+  background-color: var(--latar);
+  border-radius: 999px;
+  box-shadow: var(--clay-tekan);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* Footer Sederhana */
+.site-footer {
+  text-align: center;
+  padding: 32px 20px;
+  font-size: 0.875rem;
+  color: var(--teks-2);
+}
