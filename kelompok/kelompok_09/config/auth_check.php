@@ -13,7 +13,7 @@ function isLoggedIn(): bool {
 function cekLogin(): void {
     if (!isLoggedIn()) {
         setFlash('error', 'Silahkan login terlebih dahulu.');
-        header('Location: ' . base_url('login.php'));
+        header('Location: ' . base_url('auth/login.php'));
         exit();
     }
 }
@@ -30,16 +30,19 @@ function cekRole(array $allowedRoles): void {
 
 function redirectByRole(?string $role = null): void {
     $targetRole = $role ?? $_SESSION['role'] ?? '';
-    if ($targetRole === 'admin') {
-        header('Location: ' . base_url('admin/users.php'));
-    } elseif ($targetRole === 'petugas') {
-        header('Location: ' . base_url('petugas/event.php'));
-    } elseif ($targetRole === 'pendonor') {
-        header('Location: ' . base_url('pendonor/dashboard.php'));
-    } else {
-        header('Location: ' . base_url('index.php'));
+    $destinations = [
+        'admin' => 'admin/users.php',
+        'petugas' => 'petugas/dashboard.php',
+        'pendonor' => 'index.php',
+    ];
+    $destination = $destinations[$targetRole] ?? 'index.php';
+
+    if (!is_file(__DIR__ . '/../' . $destination)) {
+        $destination = 'index.php';
     }
-    exit; 
+
+    header('Location: ' . base_url($destination));
+    exit;
 }
 
 function currentUser(): ?array {

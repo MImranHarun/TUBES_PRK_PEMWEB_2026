@@ -16,7 +16,7 @@ CREATE TABLE users (
     tgl_donor_terakhir DATE DEFAULT NULL,
     status_aktif TINYINT(1) NOT NULL DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
 
 CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +28,7 @@ CREATE TABLE events (
     kuota INT NOT NULL DEFAULT 50,
     status_event ENUM('akan_datang', 'berlangsung', 'selesai') NOT NULL DEFAULT 'akan_datang',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
 
 CREATE TABLE antrean_skrining (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -50,7 +50,7 @@ CREATE TABLE antrean_skrining (
     CONSTRAINT fk_skrining_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_skrining_event FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
     CONSTRAINT fk_skrining_petugas FOREIGN KEY (petugas_id) REFERENCES users(id) ON DELETE SET NULL
-)
+);
 
 CREATE TABLE kantong_darah (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,7 +66,7 @@ CREATE TABLE kantong_darah (
     status ENUM('tersedia', 'keluar', 'discard') NOT NULL DEFAULT 'tersedia',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_kantong_skrining FOREIGN KEY (skrining_id) REFERENCES antrean_skrining(id) ON DELETE SET NULL
-)
+);
 
 CREATE TABLE log_suhu (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -77,7 +77,7 @@ CREATE TABLE log_suhu (
     catatan VARCHAR(255) DEFAULT NULL,
     waktu_catat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_suhu_petugas FOREIGN KEY (petugas_id) REFERENCES users(id) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE distribusi_darah (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -90,7 +90,7 @@ CREATE TABLE distribusi_darah (
     tgl_keluar DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_distribusi_kantong FOREIGN KEY (kantong_id) REFERENCES kantong_darah(id) ON DELETE CASCADE,
     CONSTRAINT fk_distribusi_petugas FOREIGN KEY (petugas_id) REFERENCES users(id) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE sos_broadcast (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -100,6 +100,22 @@ CREATE TABLE sos_broadcast (
     rs_peminta VARCHAR(150) NOT NULL,
     kebutuhan_kantong INT NOT NULL DEFAULT 1,
     kontak_darurat VARCHAR(30) NOT NULL,
-    status_aktif TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1=Tampil di Banner, 0=Selesai',
+    status_aktif TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1=Tampil di Banner, 0=Selesai, 2=Menunggu persetujuan',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
+
+INSERT INTO users (
+    nama, email, password, no_hp, alamat, role, tgl_lahir, status_aktif
+) VALUES (
+    'Admin',
+    'adminoneblood@gmail.com',
+    'admin123admin',
+    '08117200111',
+    'Gedung Dekanat FK Unila, Bandar Lampung',
+    'admin',
+    '2006-07-03',
+    1
+) ON DUPLICATE KEY UPDATE
+    password = VALUES(password),
+    role = 'admin',
+    status_aktif = 1;

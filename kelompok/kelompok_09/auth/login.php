@@ -1,22 +1,15 @@
 <?php
-/**
- * File: auth/login.php
- * Modul 1 (Anggota 1): Autentikasi Pengguna Multi-Role (Admin, Petugas, Pendonor).
- * Struktur HTML disesuaikan dengan CSS eksternal milik kelompok.
- */
 
 require_once __DIR__ . '/../config/auth_check.php';
 
-// Jika sudah login, langsung arahkan ke dashboard masing-masing
 if (isLoggedIn()) {
-    redirectByRole();
+    redirectByRole ();
 }
 
 $pageTitle = 'OneBlood Login';
 $errors    = [];
 $userVal   = '';
 
-// Proses form login saat metode request POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userVal  = trim((string)($_POST['username'] ?? ''));
     $password = (string)($_POST['password'] ?? '');
@@ -29,16 +22,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Password wajib diisi.';
     }
 
-    // 2. Pencocokan Kredensial via PDO (Bisa menggunakan Email maupun Nama)
+
     if (empty($errors)) {
         try {
             $stmt = $db->prepare("
                 SELECT id, nama, email, password, role, gol_darah, rhesus, status_aktif 
                 FROM users 
-                WHERE email = :val OR nama = :val 
+                WHERE email = :email OR nama = :nama
                 LIMIT 1
             ");
-            $stmt->execute([':val' => $userVal]);
+            $stmt->execute([':email' => $userVal, ':nama' => $userVal]);
             $user = $stmt->fetch();
 
             if ($user && password_verify($password, (string)$user['password'])) {
@@ -54,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['gol_darah'] = (string)($user['gol_darah'] ?? '-');
                     $_SESSION['rhesus']    = (string)($user['rhesus'] ?? '');
 
-                    setFlash('success', 'Selamat datang kembali, ' . $user['nama'] . '!');
                     redirectByRole((string)$user['role']);
                 }
             } else {
@@ -72,12 +64,10 @@ require_once __DIR__ . '/../includes/header.php';
 <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 
 <div class="login-wrapper">
-    <!-- SISI KIRI: Tampilan Gambar -->
     <div class="login-illustration">
         <img src="<?= base_url('assets/donor3.jpg') ?>" alt="Ilustrasi OneBlood">
     </div>
 
-    <!-- SISI KANAN: Tampilan Kartu Login -->
     <div class="login-right">
         <div class="login-card">
             <h2 class="login-title">Masuk Ke OneBlood</h2>

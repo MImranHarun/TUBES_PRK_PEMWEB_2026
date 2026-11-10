@@ -1,13 +1,6 @@
 <?php
-/**
- * File: auth/register.php
- * Modul 1 (Anggota 1): Pendaftaran Akun Pendonor Baru.
- * Menggunakan PDO Prepared Statement & password_hash() BCRYPT.
- */
-
 require_once __DIR__ . '/../config/auth_check.php';
 
-// Jika sudah login, langsung arahkan ke dashboard sesuai role
 if (isLoggedIn()) {
     redirectByRole();
 }
@@ -15,8 +8,6 @@ if (isLoggedIn()) {
 $pageTitle = 'OneBlood Register';
 $errors    = [];
 
-// Nilai default input (tidak ditampilkan langsung di atribut HTML bila ingin aman di Live Server,
-// tapi disimpan untuk validasi server-side)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama        = trim((string)($_POST['nama'] ?? ''));
     $email       = trim((string)($_POST['email'] ?? ''));
@@ -29,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $berat_badan = (float)($_POST['berat_badan'] ?? 0);
     $alamat      = trim((string)($_POST['alamat'] ?? ''));
 
-    // 1. Validasi Input Server-Side
     if ($nama === '') {
         $errors[] = 'Nama lengkap wajib diisi.';
     }
@@ -52,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Berat badan minimal untuk mendaftar sebagai pendonor adalah 45 kg.';
     }
 
-    // 2. Cek apakah email sudah terdaftar di tabel users
     if (empty($errors)) {
         try {
             $stmtCheck = $db->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
@@ -61,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmtCheck->fetch()) {
                 $errors[] = 'Email tersebut sudah terdaftar. Silakan gunakan email lain atau langsung login.';
             } else {
-                // 3. Simpan akun pendonor baru menggunakan PDO Prepared Statement
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
                 $stmtInsert = $db->prepare("
@@ -97,12 +85,10 @@ require_once __DIR__ . '/../includes/header.php';
 
 <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
   <div class="login-wrapper">
-    <!-- SISI KIRI: Tampilan Gambar -->
     <div class="login-illustration">
       <img src="<?= e(base_url('assets/donor2.jpg')) ?>" alt="Ilustrasi OneBlood">
     </div>
     <div class="register-page">
-    <!-- SISI KANAN: Tampilan Kartu Registrasi -->
       <div class="login-right">
         <div class="login-card">
           <h2 class="login-title">Daftar Akun Pendonor</h2>
